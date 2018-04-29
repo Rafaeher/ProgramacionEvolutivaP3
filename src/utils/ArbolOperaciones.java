@@ -10,16 +10,19 @@ public class ArbolOperaciones
 	private int num_0;
 	private int num_1;
 	private int num_2;
+	private int profundidad;
+	
 	
 	private void inicializar(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
 	{
 		this.izq = izq;
 		this.raiz = raiz;
 		this.der = der;
-		this.setNum_0(0);
-		this.setNum_1(0);
-		this.setNum_2(0);
-		this.setArbolPadre(null);
+		this.num_0 = 0;
+		this.num_1 = 0;
+		this.num_0 = 0;
+		this.arbolPadre = null;
+		this.profundidad = 1;
 	}
 	
 	public ArbolOperaciones(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
@@ -53,13 +56,33 @@ public class ArbolOperaciones
 				throw new Exception("No se puede añadir a la izquierda"
 						+ "de un operando > 0 nada que no sea un operando 0");
 			}
-			this.setNum_0(this.getNum_0() +1);
+			this.setNum_0(izq.getNum_0() +1);
 			this.izq = izq;
 			izq.setArbolPadre(this);
+			
+			//Ponemos la profundidad 
+			int sizeIzq, sizeDer;
+			if(this.obtenerIzq() == null) sizeIzq = 0;
+			else sizeIzq = this.obtenerIzq().getProfundidad();
+			if(this.obtenerDer() == null) sizeDer = 0;
+			else sizeDer = this.obtenerDer().getProfundidad();
+			
+			if(this.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
+				this.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
+			}
+			
+			
 			//actualizamos el valor de los que están por arriba
 			ArbolOperaciones padre = this.arbolPadre;
 			while(padre != null){
 				padre.setNum_0(padre.getNum_0() + 1);
+				if(padre.obtenerIzq() == null) sizeIzq = 0;
+				else sizeIzq = padre.obtenerIzq().getProfundidad();
+				if(padre.obtenerDer() == null) sizeDer = 0;
+				else sizeDer = padre.obtenerDer().getProfundidad();
+				if(padre.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
+					padre.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
+				}
 				padre = padre.getArbolPadre();
 			}
 			
@@ -73,16 +96,38 @@ public class ArbolOperaciones
 			throw new Exception("No se puede añadir un operando "
 					+ "a la derecha de un operando 0");
 		}
-		if(der.obtenerRaiz().getNumOperandos() == 0) this.setNum_0(this.getNum_0() + 1);
-		else if(der.obtenerRaiz().getNumOperandos() == 1) this.setNum_1(this.getNum_1() + 1);
-		else if(der.obtenerRaiz().getNumOperandos() == 2) this.setNum_2(this.getNum_2() + 1);
+	
+		if(der.obtenerRaiz().getNumOperandos() == 0) this.setNum_0(der.getNum_0() + 1);
+		else if(der.obtenerRaiz().getNumOperandos() == 1) this.setNum_1(der.getNum_1() + 1);
+		else if(der.obtenerRaiz().getNumOperandos() == 2) this.setNum_2(der.getNum_2() + 1);
 		this.der = der;
 		der.setArbolPadre(this);
+		
+		//Ponemos la profundidad 
+		int sizeIzq, sizeDer;
+		if(this.obtenerIzq() == null) sizeIzq = 0;
+		else sizeIzq = this.obtenerIzq().getProfundidad();
+		if(this.obtenerDer() == null) sizeDer = 0;
+		else sizeDer = this.obtenerDer().getProfundidad();
+		
+		if(this.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
+			this.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
+		}
+		
 		ArbolOperaciones padre = this.arbolPadre;
 		while(padre != null){
 			if(der.obtenerRaiz().getNumOperandos() == 0) padre.setNum_1(padre.getNum_0() + 1);
 			else if(der.obtenerRaiz().getNumOperandos() == 1) padre.setNum_1(padre.getNum_1() + 1);
 			else if(der.obtenerRaiz().getNumOperandos() == 2) padre.setNum_2(padre.getNum_2() + 1);
+			
+			if(padre.obtenerIzq() == null) sizeIzq = 0;
+			else sizeIzq = padre.obtenerIzq().getProfundidad();
+			if(padre.obtenerDer() == null) sizeDer = 0;
+			else sizeDer = padre.obtenerDer().getProfundidad();
+			if(padre.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
+				padre.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
+			}
+			
 			padre = padre.getArbolPadre();
 		}
 		
@@ -145,5 +190,13 @@ public class ArbolOperaciones
 	public void setNum_2(int num_2) {
 		this.num_2 = num_2;
 	}
-	
+
+	public int getProfundidad() {
+		return profundidad;
+	}
+
+	public void setProfundidad(int profundidad) {
+		this.profundidad = profundidad;
+	}
+
 }
