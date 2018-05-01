@@ -8,6 +8,7 @@ public enum Operacion
 	DIV(2, "/"),
 	LOG(1, "log"),
 	SQRT(1, "sqrt"),
+	OPUESTO(1, "-"),
 	A(0, "A");
 
 	private int numOperandos;

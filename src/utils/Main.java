@@ -1,11 +1,14 @@
 package utils;
 
-public class Main {
-	public static void main(String[] args) {
+public class Main
+{
+	public static void main(String[] args)
+	{
 
 		ArbolOperaciones theTree = new ArbolOperaciones(Operacion.SQRT);
 
-		try {
+		try
+		{
 			theTree.insertarDer(new ArbolOperaciones(Operacion.MUL));
 			theTree.obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
 			theTree.obtenerDer().insertarDer(new ArbolOperaciones(Operacion.MUL));
@@ -13,7 +16,9 @@ public class Main {
 			theTree.obtenerDer().obtenerDer().insertarDer(new ArbolOperaciones(Operacion.A));
 //			theTree.obtenerIzq().insertarIzq(new ArbolOperaciones(Operacion.SUMA));
 			System.out.println("");
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

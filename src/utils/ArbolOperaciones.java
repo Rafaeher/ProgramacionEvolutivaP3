@@ -14,15 +14,46 @@ public class ArbolOperaciones
 	
 	
 	private void inicializar(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
-	{
+	{	
 		this.izq = izq;
 		this.raiz = raiz;
 		this.der = der;
 		this.num_0 = 0;
 		this.num_1 = 0;
-		this.num_0 = 0;
-		this.arbolPadre = null;
+		this.num_2 = 0;
 		this.profundidad = 1;
+		this.arbolPadre = null;
+		
+		actualizarContadores(raiz);
+		
+		if(izq != null)
+		{
+			this.num_0 += izq.num_0;
+			this.num_1 += izq.num_1;
+			this.num_2 += izq.num_2;
+			this.profundidad = Math.max(this.profundidad, izq.profundidad + 1);
+			izq.arbolPadre = this;
+		}
+		
+		if (der != null)
+		{
+			this.num_0 += der.num_0;
+			this.num_1 += der.num_1;
+			this.num_2 += der.num_2;
+			this.profundidad = Math.max(this.profundidad, der.profundidad + 1);
+			der.arbolPadre = this;
+		}
+	}
+	
+	private void actualizarContadores(Operacion op)
+	{
+		switch(op.getNumOperandos())
+		{
+		case 0: this.num_0++; break;
+		case 1: this.num_1++; break;
+		case 2: this.num_2++; break;
+		default: break;
+		}
 	}
 	
 	public ArbolOperaciones(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
@@ -45,92 +76,87 @@ public class ArbolOperaciones
 		inicializar(null, null, null);
 	}
 	
-	public void insertarIzq(ArbolOperaciones izq) throws Exception
+	private void insertar(ArbolOperaciones nuevo, boolean insertarIzq)
 	{
-		if(this.raiz.getNumOperandos() == 0){
-			//Error porque no se puede añadir nada a un nodo que sea 0 (A)
-			throw new Exception("No se puede añadir nada a la izquierda de un operando 0");
+		if (insertarIzq)
+		{
+			this.izq = nuevo;
 		}
-		else{
-			if(izq.obtenerRaiz().getNumOperandos() != 0){
-				throw new Exception("No se puede añadir a la izquierda"
-						+ "de un operando > 0 nada que no sea un operando 0");
-			}
-			this.setNum_0(izq.getNum_0() +1);
-			this.izq = izq;
-			izq.setArbolPadre(this);
-			
-			//Ponemos la profundidad 
-			int sizeIzq, sizeDer;
-			if(this.obtenerIzq() == null) sizeIzq = 0;
-			else sizeIzq = this.obtenerIzq().getProfundidad();
-			if(this.obtenerDer() == null) sizeDer = 0;
-			else sizeDer = this.obtenerDer().getProfundidad();
-			
-			if(this.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
-				this.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
-			}
-			
-			
-			//actualizamos el valor de los que están por arriba
-			ArbolOperaciones padre = this.arbolPadre;
-			while(padre != null){
-				padre.setNum_0(padre.getNum_0() + 1);
-				if(padre.obtenerIzq() == null) sizeIzq = 0;
-				else sizeIzq = padre.obtenerIzq().getProfundidad();
-				if(padre.obtenerDer() == null) sizeDer = 0;
-				else sizeDer = padre.obtenerDer().getProfundidad();
-				if(padre.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
-					padre.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
-				}
-				padre = padre.getArbolPadre();
-			}
-			
+		else
+		{
+			this.der = nuevo;
 		}
 		
-	}
-	
-	public void insertarDer(ArbolOperaciones der) throws Exception
-	{
-		if(this.raiz.getNumOperandos() == 0){
-			throw new Exception("No se puede añadir un operando "
-					+ "a la derecha de un operando 0");
-		}
-	
-		if(der.obtenerRaiz().getNumOperandos() == 0) this.setNum_0(der.getNum_0() + 1);
-		else if(der.obtenerRaiz().getNumOperandos() == 1) this.setNum_1(der.getNum_1() + 1);
-		else if(der.obtenerRaiz().getNumOperandos() == 2) this.setNum_2(der.getNum_2() + 1);
-		this.der = der;
-		der.setArbolPadre(this);
+		nuevo.arbolPadre = this;
 		
 		//Ponemos la profundidad 
 		int sizeIzq, sizeDer;
-		if(this.obtenerIzq() == null) sizeIzq = 0;
-		else sizeIzq = this.obtenerIzq().getProfundidad();
-		if(this.obtenerDer() == null) sizeDer = 0;
-		else sizeDer = this.obtenerDer().getProfundidad();
+		if(this.izq == null)
+			sizeIzq = 0;
+		else
+			sizeIzq = this.izq.profundidad;
 		
-		if(this.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
-			this.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
+		if(this.der == null)
+			sizeDer = 0;
+		else
+			sizeDer = this.der.profundidad;
+		
+		if(this.profundidad <= Math.max(sizeIzq, sizeDer))
+		{
+			this.profundidad = Math.max(sizeIzq, sizeDer) + 1;
 		}
 		
+		this.num_0 += nuevo.num_0;
+		this.num_1 += nuevo.num_1;
+		this.num_2 += nuevo.num_2;
+		
+		//actualizamos el valor de los que están por arriba
 		ArbolOperaciones padre = this.arbolPadre;
-		while(padre != null){
-			if(der.obtenerRaiz().getNumOperandos() == 0) padre.setNum_1(padre.getNum_0() + 1);
-			else if(der.obtenerRaiz().getNumOperandos() == 1) padre.setNum_1(padre.getNum_1() + 1);
-			else if(der.obtenerRaiz().getNumOperandos() == 2) padre.setNum_2(padre.getNum_2() + 1);
+		while(padre != null)
+		{
+			padre.num_0 += nuevo.num_0;
+			padre.num_1 += nuevo.num_1;
+			padre.num_2 += nuevo.num_2;
 			
-			if(padre.obtenerIzq() == null) sizeIzq = 0;
-			else sizeIzq = padre.obtenerIzq().getProfundidad();
-			if(padre.obtenerDer() == null) sizeDer = 0;
-			else sizeDer = padre.obtenerDer().getProfundidad();
-			if(padre.getProfundidad() <= Math.max(sizeIzq, sizeDer)){
-				padre.setProfundidad(Math.max(sizeIzq, sizeDer) + 1);
-			}
+			if(padre.izq == null)
+				sizeIzq = 0;
+			else
+				sizeIzq = padre.izq.profundidad;
 			
-			padre = padre.getArbolPadre();
+			if(padre.der == null)
+				sizeDer = 0;
+			else
+				sizeDer = padre.der.profundidad;
+
+			padre.profundidad = Math.max(sizeIzq, sizeDer) + 1;
+			padre = padre.arbolPadre;
+		}
+	}
+	
+	public void insertarIzq(ArbolOperaciones nuevo) throws Exception
+	{
+		if(this.raiz.getNumOperandos() == 0)
+		{
+			//Error porque no se puede añadir nada a un nodo que sea 0 (A)
+			throw new Exception("No se puede añadir nada a la izquierda de un nodo terminal");
+		}
+		else if (this.raiz.getNumOperandos() == 1)
+		{
+			//Error porque no se puede añadir un hijo izquierdo de un nodo con operación 1 - aria
+			throw new Exception("No se puede añadir un hijo izquierdo de un nodo con operación 1 - aria");
 		}
 		
+		insertar(nuevo, true);
+	}
+	
+	public void insertarDer(ArbolOperaciones nuevo) throws Exception
+	{
+		if(this.raiz.getNumOperandos() == 0)
+		{
+			throw new Exception("No se puede añadir nada a la derecha de un nodo terminal");
+		}
+		
+		insertar(nuevo, false);
 	}
 	
 	public ArbolOperaciones obtenerIzq()
@@ -155,23 +181,32 @@ public class ArbolOperaciones
 	 */
 	public Object clone()
 	{
-		return new ArbolOperaciones((ArbolOperaciones) izq.clone(), raiz, (ArbolOperaciones) der.clone());
+		switch(raiz.getNumOperandos())
+		{
+		case 0: return new ArbolOperaciones(raiz);
+		case 1: return new ArbolOperaciones(raiz, (ArbolOperaciones) der.clone());
+		default: return new ArbolOperaciones((ArbolOperaciones) izq.clone(), raiz, (ArbolOperaciones) der.clone());
+		}
 	}
 	
 
-	public ArbolOperaciones getArbolPadre() {
+	public ArbolOperaciones getArbolPadre()
+	{
 		return arbolPadre;
 	}
 
-	public void setArbolPadre(ArbolOperaciones arbolPadre) {
+	public void setArbolPadre(ArbolOperaciones arbolPadre)
+	{
 		this.arbolPadre = arbolPadre;
 	}
 
-	public int getNum_0() {
+	public int getNum_0()
+	{
 		return num_0;
 	}
 
-	public void setNum_0(int num_0) {
+	public void setNum_0(int num_0)
+	{
 		this.num_0 = num_0;
 	}
 
@@ -179,24 +214,66 @@ public class ArbolOperaciones
 		return num_1;
 	}
 
-	public void setNum_1(int num_1) {
+	public void setNum_1(int num_1)
+	{
 		this.num_1 = num_1;
 	}
 
-	public int getNum_2() {
+	public int getNum_2() 
+	{
 		return num_2;
 	}
 
-	public void setNum_2(int num_2) {
+	public void setNum_2(int num_2)
+	{
 		this.num_2 = num_2;
 	}
 
-	public int getProfundidad() {
+	public int getProfundidad()
+	{
 		return profundidad;
 	}
 
-	public void setProfundidad(int profundidad) {
+	public void setProfundidad(int profundidad)
+	{
 		this.profundidad = profundidad;
 	}
 
+	public static void main(String args[])
+	{
+		ArbolOperaciones
+		t1 = new ArbolOperaciones(Operacion.A),
+		t2 = new ArbolOperaciones(Operacion.A),
+		t3 = new ArbolOperaciones(Operacion.A),
+		t4 = new ArbolOperaciones(Operacion.A),
+		t5 = new ArbolOperaciones(Operacion.A),
+		resta = new ArbolOperaciones(t1, Operacion.RESTA, t2),
+		division = new ArbolOperaciones(Operacion.DIV),
+		opuesto = new ArbolOperaciones(Operacion.OPUESTO, t5),
+		suma = new ArbolOperaciones(resta, Operacion.SUMA, opuesto),
+		sqrt = new ArbolOperaciones(Operacion.SQRT),
+		log = new ArbolOperaciones(Operacion.LOG, sqrt),
+		mult = new ArbolOperaciones(Operacion.MUL);
+		
+		try
+		{	
+			division.insertarDer(t4);
+			division.insertarIzq(t3);
+			mult.insertarIzq(suma);			
+			mult.insertarDer(log);
+			sqrt.insertarDer(division);
+			
+			ArbolOperaciones aux2 = mult;
+			System.out.println("Num 0: " + aux2.num_0);
+			System.out.println("Num 1: " + aux2.num_1);
+			System.out.println("Num 2: " + aux2.num_2);
+			System.out.println("Profundidad: " + aux2.profundidad);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+				
+	}
+	
 }
