@@ -473,30 +473,18 @@ public class PanelInfo extends javax.swing.JPanel {
 	}
 
 	private Reproduccion_enum getReproduccion(String s) {
-		switch (s) {
-		case "PMX":
-			return Reproduccion_enum.PMX;
-		case "Ordinal":
-			return Reproduccion_enum.CODIFICACION_ORDINAL;
-		case "RepG10":
-			return Reproduccion_enum.ReproduccionG10;
-		default:
-			return null;
-		}
+		return Reproduccion_enum.CRUCE_ARBOL;
 	}
 
 	private Mutacion_enum getMutacion(String s) {
 		switch (s) {
-		case "Insercion":
-			return Mutacion_enum.INSERCION;
-		case "Intercambio":
-			return Mutacion_enum.INTERCAMBIO;
-		case "Inversion":
-			return Mutacion_enum.INVERSION;
-		case "MutG10":
-			return Mutacion_enum.MutacionG10;
-		case "Heuristica":
-			return Mutacion_enum.HEURISTICA;
+		case "Mutacion de arbol":
+			return Mutacion_enum.MUTACION_DE_ARBOL;
+		case "Mutacion funcional simple":
+			return Mutacion_enum.MUTACION_FUNCIONAL_SIMPLE;
+		case "Mutacion terminal simple":
+			return Mutacion_enum.MUTACION_TERMINAL_SIMPLE;
+
 		default:
 			return null;
 		}
