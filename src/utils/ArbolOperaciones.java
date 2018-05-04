@@ -58,16 +58,31 @@ public class ArbolOperaciones
 	
 	public ArbolOperaciones(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
 	{
+		if(raiz.getNumOperandos() != 2)
+		{
+			throw new IllegalArgumentException("Esta constructora solo se puede emplear para árboles con raíces binarias");
+		}
+		
 		inicializar(izq, raiz, der);
 	}
 	
 	public ArbolOperaciones(Operacion raiz, ArbolOperaciones der)
 	{
+		if(raiz.getNumOperandos() != 1)
+		{
+			throw new IllegalArgumentException("Esta constructora solo se puede emplear para árboles con raíces 1 - arias");
+		}
+		
 		inicializar(null, raiz, der);
 	}
 	
 	public ArbolOperaciones(Operacion raiz)
 	{
+		/*if(raiz.getNumOperandos() != 0)
+		{
+			throw new IllegalArgumentException("Esta constructora solo se puede emplear para árboles con raíces terminales");
+		}*/
+		
 		inicializar(null, raiz, null);
 	}
 	
@@ -172,6 +187,11 @@ public class ArbolOperaciones
 	public Operacion obtenerRaiz()
 	{
 		return raiz;
+	}
+	
+	public void setRaiz(Operacion operacion)
+	{
+		raiz = operacion;
 	}
 	
 	/**
