@@ -41,10 +41,10 @@ public class FactoriaPoblacionInicial
 		return result;
 	}
 	
-	private ArbolOperaciones inicializacionAleatoria(int max){
+	private ArbolOperaciones inicializacionAleatoria(int max)
+	{
 		Random r = new Random();
-		Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
-				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};
+		Operacion[] operandos = Operacion.values();
 		
 		ArbolOperaciones arbol = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
 		

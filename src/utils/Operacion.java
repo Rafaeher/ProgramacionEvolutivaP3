@@ -29,5 +29,4 @@ public enum Operacion
 	{
 		return numOperandos;
 	}
-	
 }

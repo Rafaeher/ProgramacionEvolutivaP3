@@ -264,27 +264,18 @@ public class ArbolOperaciones
 		t3 = new ArbolOperaciones(Operacion.A),
 		t4 = new ArbolOperaciones(Operacion.A),
 		t5 = new ArbolOperaciones(Operacion.A),
-		resta = new ArbolOperaciones(t1, Operacion.RESTA, t2),
-		division = new ArbolOperaciones(Operacion.DIV),
-		opuesto = new ArbolOperaciones(Operacion.OPUESTO, t5),
-		suma = new ArbolOperaciones(resta, Operacion.SUMA, opuesto),
-		sqrt = new ArbolOperaciones(Operacion.SQRT),
-		log = new ArbolOperaciones(Operacion.LOG, sqrt),
-		mult = new ArbolOperaciones(Operacion.MUL);
+		opuesto1 = new ArbolOperaciones(Operacion.OPUESTO, t1),
+		opuesto2 = new ArbolOperaciones(Operacion.OPUESTO, t2),
+		mul = new ArbolOperaciones(opuesto1, Operacion.MUL, opuesto2),
+		resta = new ArbolOperaciones(mul, Operacion.RESTA, t3),
+		sqrt = new ArbolOperaciones(Operacion.SQRT, t4),
+		div = new ArbolOperaciones(sqrt, Operacion.DIV, t5),
+		log = new ArbolOperaciones(Operacion.LOG, div),
+		suma = new ArbolOperaciones(resta, Operacion.SUMA, log);
 		
 		try
 		{	
-			division.insertarDer(t4);
-			division.insertarIzq(t3);
-			mult.insertarIzq(suma);			
-			mult.insertarDer(log);
-			sqrt.insertarDer(division);
-			
-			ArbolOperaciones aux2 = mult;
-			System.out.println("Num 0: " + aux2.num_0);
-			System.out.println("Num 1: " + aux2.num_1);
-			System.out.println("Num 2: " + aux2.num_2);
-			System.out.println("Profundidad: " + aux2.profundidad);
+			System.out.println(suma.operar(1.0));
 		}
 		catch(Exception e)
 		{
@@ -292,6 +283,7 @@ public class ArbolOperaciones
 		}
 				
 	}
+	
 	public void generarHijosAleatorios() throws Exception{
 		Random r = new Random();
 		Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
@@ -309,6 +301,8 @@ public class ArbolOperaciones
 			this.insertarDer(arbolDer);
 		}	
 	}
+	
+	
 	public void forzarTamano() throws Exception{
 		if(raiz.getNumOperandos() == 2){
 			//Hijo izquierdo
@@ -319,5 +313,42 @@ public class ArbolOperaciones
 		else if(raiz.getNumOperandos() == 1){
 			this.insertarDer(new ArbolOperaciones(Operacion.A));
 		}	
+	}
+	
+	public double operar(double valor)
+	{
+		if (raiz.getNumOperandos() == 0)
+		{
+			return valor;
+		}
+		else
+		{
+			double resultIzq = 0;
+			double resultDer = der.operar(valor);
+			if (raiz.getNumOperandos() == 2)
+			{
+				resultIzq = izq.operar(1.0);
+			}		
+
+			return opera(resultIzq, raiz, resultDer);
+		}
+		
+		
+	}
+	
+	private static double opera(double valorIzq, Operacion operacion, double valorDer)
+	{
+		switch(operacion)
+		{
+		case SUMA: return valorIzq + valorDer;
+		case RESTA: return valorIzq - valorDer;
+		case MUL: return valorIzq * valorDer;
+		case DIV: return valorIzq * valorDer;
+		case LOG: return Math.log10(valorDer);
+		case SQRT: return Math.sqrt(valorDer);
+		case OPUESTO: return -valorDer;
+		case A: throw new IllegalArgumentException("A es terminal, no una operación");
+		default: throw new IllegalArgumentException("La operación no está definida para operarse en " + ArbolOperaciones.class.getName());
+		}
 	}
 }
