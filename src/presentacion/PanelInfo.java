@@ -14,10 +14,6 @@ import configuracion.Seleccion_enum;
  * @author carlo
  */
 public class PanelInfo extends javax.swing.JPanel {
-
-	/**
-	 * Creates new form NewJPanel
-	 */
 	public PanelInfo() {
 		initComponents();
 	}
@@ -45,16 +41,20 @@ public class PanelInfo extends javax.swing.JPanel {
 		jTextFieldProbMutacion = new javax.swing.JTextField();
 		jTextFieldElite = new javax.swing.JTextField();
 		jLabelElite = new javax.swing.JLabel();
-		jScrollPane3 = new javax.swing.JScrollPane();
-		jTextArea3 = new javax.swing.JTextArea();
 		jScrollPane4 = new javax.swing.JScrollPane();
 		jTextArea4 = new javax.swing.JTextArea();
 		jButtonRun = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
+		jTextFieldProfundidad = new javax.swing.JTextField();
 		jComboBoxMutacion = new javax.swing.JComboBox<>();
-		jLabelSeleccion1 = new javax.swing.JLabel();
-		jComboBoxFitness = new javax.swing.JComboBox<>();
-		jProgressBar1 = new javax.swing.JProgressBar();
+		jPanel1 = new javax.swing.JPanel();
+		jLabelFunciones = new javax.swing.JLabel();
+		jCheckBoxSuma = new javax.swing.JCheckBox();
+		jCheckBoxResta = new javax.swing.JCheckBox();
+		jCheckBoxRaiz = new javax.swing.JCheckBox();
+		jCheckBoxMultiplicacion = new javax.swing.JCheckBox();
+		jCheckBoxDivision = new javax.swing.JCheckBox();
+		jCheckBoxRaiz1 = new javax.swing.JCheckBox();
 
 		setAutoscrolls(true);
 		setPreferredSize(new java.awt.Dimension(400, 200));
@@ -96,7 +96,7 @@ public class PanelInfo extends javax.swing.JPanel {
 		});
 
 		jComboBoxCruce.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-		jComboBoxCruce.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PMX", "Ordinal", "RepG10" }));
+		jComboBoxCruce.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cruce arbol"}));
 		jComboBoxCruce.setToolTipText("Selecciona un mecanismo de cruce");
 		jComboBoxCruce.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jComboBoxCruce.addActionListener(new java.awt.event.ActionListener() {
@@ -141,11 +141,6 @@ public class PanelInfo extends javax.swing.JPanel {
 		jLabelElite.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 		jLabelElite.setText("Elite");
 
-		jTextArea3.setColumns(20);
-		jTextArea3.setRows(5);
-		jTextArea3.setAutoscrolls(false);
-		jScrollPane3.setViewportView(jTextArea3);
-
 		jTextArea4.setEditable(false);
 		jTextArea4.setBackground(new java.awt.Color(239, 234, 234));
 		jTextArea4.setColumns(20);
@@ -160,9 +155,12 @@ public class PanelInfo extends javax.swing.JPanel {
 			}
 		});
 
+		jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+		jLabel1.setText("Profundidad maxima");
+
 		jComboBoxMutacion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 		jComboBoxMutacion.setModel(new javax.swing.DefaultComboBoxModel<>(
-				new String[] { "Intercambio", "Insercion", "Inversion", "MutG10", "Heuristica" }));
+				new String[] { "De arbol", "Funcional simple", "Terminal simple" }));
 		jComboBoxMutacion.setToolTipText("Selecciona un mecanismo de cruce");
 		jComboBoxMutacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jComboBoxMutacion.addActionListener(new java.awt.event.ActionListener() {
@@ -171,181 +169,231 @@ public class PanelInfo extends javax.swing.JPanel {
 			}
 		});
 
-		jLabelSeleccion1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-		jLabelSeleccion1.setText("Fitness");
+		jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-		jComboBoxFitness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-		jComboBoxFitness
-				.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Palabras"}));
-		jComboBoxFitness.setToolTipText("Elige un método de seleccion");
-		jComboBoxFitness.addActionListener(new java.awt.event.ActionListener() {
+		jLabelFunciones.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+		jLabelFunciones.setText("Funciones");
+
+		jCheckBoxSuma.setText("+");
+		jCheckBoxSuma.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jComboBoxFitnessActionPerformed(evt);
+				jCheckBoxSumaActionPerformed(evt);
 			}
 		});
+
+		jCheckBoxResta.setText("-");
+		jCheckBoxResta.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jCheckBoxRestaActionPerformed(evt);
+			}
+		});
+
+		jCheckBoxRaiz.setText("sqrt");
+		jCheckBoxRaiz.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jCheckBoxRaizActionPerformed(evt);
+			}
+		});
+
+		jCheckBoxMultiplicacion.setText("*");
+		jCheckBoxMultiplicacion.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jCheckBoxMultiplicacionActionPerformed(evt);
+			}
+		});
+
+		jCheckBoxDivision.setText("/");
+		jCheckBoxDivision.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jCheckBoxDivisionActionPerformed(evt);
+			}
+		});
+
+		jCheckBoxRaiz1.setText("log");
+		jCheckBoxRaiz1.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jCheckBoxRaiz1ActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addGroup(jPanel1Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabelFunciones)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jCheckBoxSuma).addComponent(jCheckBoxMultiplicacion))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jCheckBoxResta).addComponent(jCheckBoxDivision))
+								.addGap(104, 104, 104)
+								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jCheckBoxRaiz1).addComponent(jCheckBoxRaiz))
+								.addGap(23, 23, 23)))));
+		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabelFunciones)
+						.addGap(18, 18, 18)
+						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jCheckBoxSuma).addComponent(jCheckBoxResta).addComponent(jCheckBoxRaiz))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jCheckBoxMultiplicacion).addComponent(jCheckBoxDivision).addComponent(
+										jCheckBoxRaiz1))
+						.addGap(27, 27, 27)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup().addGap(173, 173, 173).addComponent(jButtonRun)
-								.addGap(18, 18, 18)
-								.addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
-										.addComponent(jScrollPane3)
-										.addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.TRAILING, false)
-												.addGroup(layout
-														.createSequentialGroup()
-														.addComponent(jTextFieldProbMutacion,
-																javax.swing.GroupLayout.PREFERRED_SIZE, 42,
-																javax.swing.GroupLayout.PREFERRED_SIZE)
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+						.createSequentialGroup().addGroup(layout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+										javax.swing.GroupLayout.Alignment.TRAILING,
+										layout.createSequentialGroup().addContainerGap().addGroup(layout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+												.addGroup(layout.createSequentialGroup().addGroup(layout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+																false)
+														.addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout
+																.createSequentialGroup()
+																.addComponent(jTextFieldCruceporcentaje,
+																		javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(
+																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jComboBoxCruce,
+																		0, javax.swing.GroupLayout.DEFAULT_SIZE,
+																		Short.MAX_VALUE))
+														.addGroup(layout
+																.createParallelGroup(
+																		javax.swing.GroupLayout.Alignment.LEADING)
+																.addGroup(layout
+																		.createParallelGroup(
+																				javax.swing.GroupLayout.Alignment.LEADING,
+																				false)
+																		.addComponent(jLabelPoblacion)
+																		.addComponent(jLabelGeneraciones,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				Short.MAX_VALUE)
+																		.addComponent(jTextFieldGeneraciones)
+																		.addComponent(jTextFieldPoblacion))
+																.addGroup(layout.createSequentialGroup()
+																		.addComponent(jLabelCruceporcentaje)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+																		.addComponent(jLabelCruce))))
 														.addPreferredGap(
-																javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-														.addComponent(jComboBoxMutacion, 0, 1, Short.MAX_VALUE))
-												.addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout
-														.createSequentialGroup()
-														.addComponent(jTextFieldCruceporcentaje,
-																javax.swing.GroupLayout.PREFERRED_SIZE, 45,
-																javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(
-																javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(jComboBoxCruce,
-																0, javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE))
-												.addGroup(layout
-														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100,
+																Short.MAX_VALUE)
 														.addGroup(layout
 																.createParallelGroup(
 																		javax.swing.GroupLayout.Alignment.LEADING,
 																		false)
-																.addComponent(jLabelPoblacion)
-																.addComponent(jLabelGeneraciones,
-																		javax.swing.GroupLayout.DEFAULT_SIZE,
-																		javax.swing.GroupLayout.DEFAULT_SIZE,
-																		Short.MAX_VALUE)
-																.addComponent(jTextFieldGeneraciones)
-																.addComponent(jTextFieldPoblacion))
-														.addGroup(layout.createSequentialGroup()
-																.addComponent(jLabelCruceporcentaje)
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																.addComponent(jLabelCruce))
-														.addComponent(
-																jLabelProbMutacion)))
-												.addGroup(layout.createParallelGroup(
-														javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(layout.createSequentialGroup().addGap(100, 100, 100)
-																.addGroup(layout
-																		.createParallelGroup(
+																.addComponent(jTextFieldProfundidad,
+																		javax.swing.GroupLayout.Alignment.TRAILING,
+																		javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.LEADING)
-																		.addGroup(layout.createSequentialGroup()
-																				.addComponent(jLabel1)
-																				.addGap(0, 0, Short.MAX_VALUE))
-																		.addComponent(jTextFieldElite,
-																				javax.swing.GroupLayout.Alignment.TRAILING,
+																				.addGroup(layout.createSequentialGroup()
+																						.addComponent(jLabelSeleccion)
+																						.addGap(41, 41, 41)
+																						.addComponent(jLabelElite))
+																				.addGroup(layout.createSequentialGroup()
+																						.addComponent(
+																								jComboBoxSeleccion,
+																								javax.swing.GroupLayout.PREFERRED_SIZE,
+																								72,
+																								javax.swing.GroupLayout.PREFERRED_SIZE)
+																						.addPreferredGap(
+																								javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																						.addComponent(jTextFieldElite,
+																								javax.swing.GroupLayout.PREFERRED_SIZE,
+																								62,
+																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																				.addComponent(jLabel1))
+																.addComponent(jLabelProbMutacion)
+																.addGroup(layout.createSequentialGroup()
+																		.addComponent(jTextFieldProbMutacion,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				140,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-														.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-																layout.createSequentialGroup()
+																				42,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
-																		.addGroup(layout
-																				.createParallelGroup(
-																						javax.swing.GroupLayout.Alignment.LEADING)
-																				.addGroup(
-																						javax.swing.GroupLayout.Alignment.TRAILING,
-																						layout.createSequentialGroup()
-																								.addGroup(layout
-																										.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING)
-																										.addComponent(
-																												jLabelElite)
-																										.addComponent(
-																												jLabelSeleccion)
-																										.addComponent(
-																												jLabelSeleccion1))
-																								.addGap(87, 87, 87))
-																				.addComponent(jComboBoxSeleccion,
-																						javax.swing.GroupLayout.Alignment.TRAILING,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						140,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(jComboBoxFitness,
-																						javax.swing.GroupLayout.Alignment.TRAILING,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						140,
-																						javax.swing.GroupLayout.PREFERRED_SIZE))))))
-								.addContainerGap()));
+																		.addComponent(jComboBoxMutacion,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				88,
+																				javax.swing.GroupLayout.PREFERRED_SIZE))))))
+								.addGroup(layout.createSequentialGroup().addGap(173, 173, 173).addComponent(jButtonRun)
+										.addGap(0, 0, Short.MAX_VALUE))
+								.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jPanel1,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)))
+						.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup().addContainerGap()
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelPoblacion).addComponent(jLabelSeleccion))
+						.addComponent(jLabelPoblacion).addComponent(jLabelSeleccion).addComponent(jLabelElite))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(jTextFieldPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addComponent(jComboBoxSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextFieldElite, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelGeneraciones).addComponent(jLabelSeleccion1))
+						.addComponent(jLabelGeneraciones).addComponent(jLabel1))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(jTextFieldGeneraciones, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(jComboBoxFitness, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addComponent(jTextFieldProfundidad, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelCruceporcentaje).addComponent(jLabelElite).addComponent(jLabelCruce))
+						.addComponent(jLabelCruceporcentaje).addComponent(jLabelCruce).addComponent(jLabelProbMutacion))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(jTextFieldCruceporcentaje, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(jTextFieldElite, javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addComponent(jComboBoxCruce, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextFieldProbMutacion, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(jComboBoxMutacion, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelProbMutacion).addComponent(jLabel1))
-				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-								
-								.addGap(1, 1, 1))
-						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(jTextFieldProbMutacion, javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(jComboBoxMutacion, javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-				.addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 151,
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 						javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-						.addComponent(jButtonRun, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addContainerGap(12, Short.MAX_VALUE)));
+				.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 185,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(18, 18, 18).addComponent(jButtonRun)
+				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		cosasPorDefecto();
 	}// </editor-fold>
+
+	private void cosasPorDefecto() {
+
+		this.jTextFieldPoblacion.setText("300");
+		this.jTextFieldCruceporcentaje.setText("60");
+		this.jTextFieldGeneraciones.setText("200");
+		this.jTextFieldProbMutacion.setText("8");
+		this.jTextFieldElite.setText("5");
+
+		this.jTextArea4.setLineWrap(true);
+		this.jTextArea4.setWrapStyleWord(true);
+	}
 
 	private void jTextFieldPoblacionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
@@ -379,48 +427,28 @@ public class PanelInfo extends javax.swing.JPanel {
 		// TODO add your handling code here:
 	}
 
-	private void jComboBoxFitnessActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jCheckBoxSumaActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 	}
 
-	private void cosasPorDefecto() {
-		this.jProgressBar1.setVisible(false);
-		this.jTextFieldPoblacion.setText("300");
-		this.jTextFieldCruceporcentaje.setText("60");
-		this.jTextFieldGeneraciones.setText("200");
-		this.jTextFieldProbMutacion.setText("8");
-		this.jTextFieldElite.setText("5");
-		String texto3 = "GNX NVMVNL XP G QUEVNLV NGSCV PM WYZGS GOXUEUXUVL US ONVGXUSC EULYGT, ";
-		texto3 += "GYQUXPNH PN KVNMPNZUSC GNXUMGOXL. XWVLV GNXFPNBL VJKNVLL XWV GYXWPN'L UZGCU";
-		texto3 += "SGXUEV PN XVOWSUOGT LBUTT. GNX UL USXVSQVQ XP IV GKKNVOUGXVQ MPN UXL IVGYXH";
-		texto3 += " PN VZPXUPSGT KPFVN. US XWVUN ZPLX CVSVNGT MPNZ XWVLV GOXUEUXUVL USOTYQV XW";
-		texto3 += "V KNPQYOXUPS PM FPNBL PM GNX, XWV ONUXUOULZ PM GNX, XWV LXYQH PM XWV WULXPN";
-		texto3 += "H PM GNX, GSQ XWV GVLXWVXUO QULLVZUSGXUPS PM GNX. GNX WGL WGQ G CNVGX SYZIV";
-		texto3 += "N PM QUMMVNVSX MYSOXUPSL XWNPYCWPYX UXL WULXPNH, ZGBUSC UXL KYNKPLV QUMMUOY";
-		texto3 += "TX XP GILXNGOX PN RYGSXUMH XP GSH LUSCTV OPSOVKX. XWUL QPVL SPX UZKTH XWGX ";
-		texto3 += "XWV KYNKPLV PM GNX UL EGCYV, IYX XWGX UX WGL WGQ ZGSH YSURYV, QUMMVNVSX N";
-		texto3 += "VGLPSL MPN IVUSC ONVGXVQ. GNX OGS WGEV G KVNLPSGT MYSOXUPS, UX UL GS VJKNVL";
-		texto3 += "LUPS PM IGLUO WYZGS USLXUSOX MPN WGNZPSH, IGTGSOV, NWHXWZ. GNX GX XWUL TVEV";
-		texto3 += "T UL SPX GS GOXUPS PN GS PIDVOX, IYX GS USXVNSGT GKKNVOUGXUPS PM IGTGSOV GS";
-		texto3 += "Q WGNZPSH (IVGYXH), GSQ XWVNVMPNV GS GLKVOX PM IVUSC WYZGS IVHPSQ YXUTUXH. ";
-		texto3 += "GNX GTLP KNPEUQVL G FGH XP VJKVNUVSOV PSV'L LVTM US NVTGXUPS XP XWV YSUEVNL";
-		texto3 += "V. XWUL VJKVNUVSOV ZGH PMXVS OPZV YSZPXUEGXVQ, GL PSV GKKNVOUGXVL GNX, ZYLU";
-		texto3 += "O PN KPVXNH. PS XWV PXWVN WGSQ GNX ZGH WGEV G LPOUGT MYSOXUPS. GX UXL LUZKT";
-		texto3 += "VLX, GNX UL G MPNZ PM OPZZYSUOGXUPS. UX LVVBL XP VSXVNXGUS GSQ INUSC GIPYX ";
-		texto3 += "G KGNXUOYTGN VZPXUPS PN ZPPQ, MPN XWV KYNKPLV PM NVTGJUSC PN VSXVNXGUSUSC X";
-		texto3 += "WV EUVFVN. GNX ZGH GTLP IV GS VJKNVLLUPS PM LPOUGT KNPXVLX, LVVBUSC XP RYVL";
-		texto3 += "XUPS GLKVOXL PM LPOUVXH. XWV PTQVLX MPNZ PM GNX GNV EULYGT GNXL, FWUOW USOT";
-		texto3 += "YQV ONVGXUPS PM UZGCVL PN PIDVOXL US MUVTQL USOTYQUSC KGUSXUSC, LOYTKXYNV, ";
-		texto3 += "KNUSXZGBUSC, KWPXPCNGKWH, GSQ PXWVN EULYGT ZVQUG. GNOWUXVOXYNV UL PMXVS USO";
-		texto3 += "TYQVQ GL PSV PM XWV EULYGT GNXL; WPFVEVN, TUBV XWV QVOPNGXUEV GNXL, UX USEP";
-		texto3 += "TEVL XWV ONVGXUPS PM PIDVOXL FWVNV XWV KNGOXUOGT OPSLUQVNGXUPSL PM YLV GNV ";
-		texto3 += "VLLVSXUGT, US G FGH XWGX XWVH YLYGTTH GNV SPX US G KGUSXUSC, MPN VJGZKTV.";
-		this.jTextArea3.setText(texto3);
+	private void jCheckBoxRestaActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+	}
 
-		this.jTextArea3.setLineWrap(true);
-		this.jTextArea3.setWrapStyleWord(true);
-		this.jTextArea4.setLineWrap(true);
-		this.jTextArea4.setWrapStyleWord(true);
+	private void jCheckBoxRaizActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+	}
+
+	private void jCheckBoxMultiplicacionActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+	}
+
+	private void jCheckBoxDivisionActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+	}
+
+	private void jCheckBoxRaiz1ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
 	}
 
 	private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,15 +470,14 @@ public class PanelInfo extends javax.swing.JPanel {
 			Reproduccion_enum r = getReproduccion(cruce);
 			Genotipo_enum g = Genotipo_enum.ALFABETO;
 			Mutacion_enum m = getMutacion(mutacion);
-			this.jProgressBar1.setMaximum(num_generaciones);
-			this.jProgressBar1.setMinimum(0);
-			Configuracion c = new Configuracion(true, num_generaciones, prob_mutacion, r, m, s, g, cruceporcentaje,
-					tamano_poblacion, elite, jTextArea3.getText().toLowerCase());
 
-			//jProgressBar1 = new JProgressBar(0, task.getLengthOfTask());
-		//	jProgressBar1.setValue(0);
-		//	jProgressBar1.setStringPainted(true);
-			
+			Configuracion c = new Configuracion(true, num_generaciones, prob_mutacion, r, m, s, g, cruceporcentaje,
+					tamano_poblacion, elite, "");
+
+			// jProgressBar1 = new JProgressBar(0, task.getLengthOfTask());
+			// jProgressBar1.setValue(0);
+			// jProgressBar1.setStringPainted(true);
+
 			Controlador controlador = new Controlador();
 			// System.out.println("tamaño de la poblacion" + tamano_poblacion);
 			controlador.execute(c);
@@ -473,92 +500,52 @@ public class PanelInfo extends javax.swing.JPanel {
 	}
 
 	private Reproduccion_enum getReproduccion(String s) {
-		switch (s) {
-		case "PMX":
-			return Reproduccion_enum.PMX;
-		case "Ordinal":
-			return Reproduccion_enum.CODIFICACION_ORDINAL;
-		case "RepG10":
-			return Reproduccion_enum.ReproduccionG10;
-		default:
-			return null;
-		}
+		return Reproduccion_enum.CRUCE_ARBOL;
 	}
 
 	private Mutacion_enum getMutacion(String s) {
 		switch (s) {
-		case "Insercion":
-			return Mutacion_enum.INSERCION;
-		case "Intercambio":
-			return Mutacion_enum.INTERCAMBIO;
-		case "Inversion":
-			return Mutacion_enum.INVERSION;
-		case "MutG10":
-			return Mutacion_enum.MutacionG10;
-		case "Heuristica":
-			return Mutacion_enum.HEURISTICA;
+		case "Mutacion de arbol":
+			return Mutacion_enum.MUTACION_DE_ARBOL;
+		case "Mutacion funcional simple":
+			return Mutacion_enum.MUTACION_FUNCIONAL_SIMPLE;
+		case "Mutacion terminal simple":
+			return Mutacion_enum.MUTACION_TERMINAL_SIMPLE;
+
 		default:
 			return null;
 		}
 
 	}
 
-	public void setTexto(String texto, String estadisticas)
-	{
-		String original = jTextArea3.getText();
-		String textoFinal = "";
-		
-		for(int i = 0; i < original.length(); i++)
-		{
-			if (Character.isLowerCase(original.charAt(i)))
-			{
-				textoFinal += Character.toLowerCase(texto.charAt(i));
-			}
-			else
-			{
-				textoFinal += texto.charAt(i);
-			}
-		}
-		
-		textoFinal += estadisticas;
-		
-		this.jTextArea4.setText(textoFinal);
-
-	}
-
-	public void setProgress(int num) {
-		this.jProgressBar1.setValue(num);
-		this.jProgressBar1.repaint();
-		progressMonitor.setProgress(num);
-		this.repaint();
-	}
-
 	// Variables declaration - do not modify
 	private javax.swing.JButton jButtonRun;
+	private javax.swing.JCheckBox jCheckBoxDivision;
+	private javax.swing.JCheckBox jCheckBoxMultiplicacion;
+	private javax.swing.JCheckBox jCheckBoxRaiz;
+	private javax.swing.JCheckBox jCheckBoxRaiz1;
+	private javax.swing.JCheckBox jCheckBoxResta;
+	private javax.swing.JCheckBox jCheckBoxSuma;
 	private javax.swing.JComboBox<String> jComboBoxCruce;
-	private javax.swing.JComboBox<String> jComboBoxFitness;
 	private javax.swing.JComboBox<String> jComboBoxMutacion;
 	private javax.swing.JComboBox<String> jComboBoxSeleccion;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabelCruce;
 	private javax.swing.JLabel jLabelCruceporcentaje;
 	private javax.swing.JLabel jLabelElite;
+	private javax.swing.JLabel jLabelFunciones;
 	private javax.swing.JLabel jLabelGeneraciones;
 	private javax.swing.JLabel jLabelPoblacion;
 	private javax.swing.JLabel jLabelProbMutacion;
 	private javax.swing.JLabel jLabelSeleccion;
-	private javax.swing.JLabel jLabelSeleccion1;
-	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane3;
+	private javax.swing.JPanel jPanel1;
 	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JTextArea jTextArea3;
 	private javax.swing.JTextArea jTextArea4;
 	private javax.swing.JTextField jTextFieldCruceporcentaje;
 	private javax.swing.JTextField jTextFieldGeneraciones;
 	private javax.swing.JTextField jTextFieldPoblacion;
 	private javax.swing.JTextField jTextFieldProbMutacion;
 	private javax.swing.JTextField jTextFieldElite;
-	
-	private ProgressMonitor progressMonitor;
+	private javax.swing.JTextField jTextFieldProfundidad;
 	// End of variables declaration
 }
