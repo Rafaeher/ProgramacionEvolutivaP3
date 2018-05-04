@@ -87,7 +87,8 @@ public class Individuo<GenotipoI extends Genotipo, FenotipoI extends Fenotipo, F
 	 */
 	public void setGenotipo(GenotipoI genotipoE)
 	{
-		genotipo = (GenotipoI) genotipoE.cloneGenotipo();
+		//deberia clonar pero lo he borrado porque no esta implementado
+		genotipo = (GenotipoI) genotipoE;
 	}
 
 	/**

@@ -1,14 +1,17 @@
 package poblacionInicial;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 import configuracion.Configuracion;
-import decodificador.Decodificador;
-import fenotipo.FenotipoMensaje;
+import fenotipo.FenotipoArbol;
 import fitness.FitnessReal;
-import genotipo.GenotipoAlfabeto;
+import genotipo.GenotipoArbol;
 import individuo.Individuo;
+import utils.ArbolOperaciones;
+import utils.Operacion;
 
 public class FactoriaPoblacionInicial
 {
@@ -18,25 +21,72 @@ public class FactoriaPoblacionInicial
 		Random r = new Random();
 		ArrayList<?> result = null;
 		
-		result = new ArrayList<Individuo<GenotipoAlfabeto, FenotipoMensaje, FitnessReal>>(configuracion.getTamano_poblacion());
+		result = new ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>(100);
 		
-		for(int i = 0; i < configuracion.getTamano_poblacion(); i++)
+		for(int i = 0; i < 100; i++)
 		{
-			Individuo<GenotipoAlfabeto, FenotipoMensaje, FitnessReal> individuo = new Individuo<GenotipoAlfabeto, FenotipoMensaje, FitnessReal>();
-			GenotipoAlfabeto genotipo = new GenotipoAlfabeto();
-			genotipo.inicializacionAleatoria();
-			FenotipoMensaje fenotipo = new FenotipoMensaje(configuracion.getMensaje());
-			Decodificador.decodifica(genotipo, fenotipo);
-			
-			//FitnessReal fitness = new FitnessReal(r.nextDouble());
-			
+			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
+			GenotipoArbol genotipo = new GenotipoArbol();
+			ArbolOperaciones arbol = inicializacionAleatoria(5);
+			genotipo.setArbol(arbol);
+			FenotipoArbol fenotipo = new FenotipoArbol();
+			//Falta decodificar el arbol
 			individuo.setGenotipo(genotipo);
 			individuo.setFenotipo(fenotipo);
-			//individuo.setFitness(fitness);
 			
-			((ArrayList<Individuo<GenotipoAlfabeto, FenotipoMensaje, FitnessReal>>) result).add(individuo);
-		}
+			((ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>) result).add(individuo);
+			
+			}
 		
 		return result;
+	}
+	
+	private ArbolOperaciones inicializacionAleatoria(int max){
+		Random r = new Random();
+		Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
+				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};
+		
+		ArbolOperaciones arbol = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+		
+		Queue<ArbolOperaciones> nodos = new LinkedList<>();
+		
+		nodos.add(arbol);
+		
+		while(!nodos.isEmpty() && arbol.getProfundidad() < max-1){
+			ArbolOperaciones arbolAux = nodos.remove();
+			if(arbolAux != null){
+				try {
+					arbolAux.generarHijosAleatorios();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				nodos.add(arbolAux.obtenerDer());
+				nodos.add(arbolAux.obtenerIzq());
+			}
+		}
+		while(!nodos.isEmpty()){
+			ArbolOperaciones arbolAux = nodos.remove();
+			if(arbolAux != null){
+				try {
+					arbolAux.forzarTamano();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		return arbol;
+	}
+	public static void main(String args[])
+	{
+		
+		FactoriaPoblacionInicial f = new FactoriaPoblacionInicial();
+		
+		ArrayList<?> poblacion = f.getPrimeraPoblacion(null);
+		@SuppressWarnings("unchecked")
+		ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> pob = (ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>) poblacion;
+		System.out.println(pob.size());
+
+				
 	}
 }
