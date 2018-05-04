@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Random;
+
 public class ArbolOperaciones 
 {
 
@@ -78,11 +80,6 @@ public class ArbolOperaciones
 	
 	public ArbolOperaciones(Operacion raiz)
 	{
-		if(raiz.getNumOperandos() != 0)
-		{
-			throw new IllegalArgumentException("Esta constructora solo se puede emplear para árboles con raíces terminales");
-		}
-		
 		inicializar(null, raiz, null);
 	}
 	
@@ -189,6 +186,11 @@ public class ArbolOperaciones
 		return raiz;
 	}
 	
+	public void setRaiz(Operacion operacion)
+	{
+		raiz = operacion;
+	}
+	
 	/**
 	 * Clona el árbol en tiempo lineal en el número de nodos
 	 * 
@@ -290,5 +292,32 @@ public class ArbolOperaciones
 		}
 				
 	}
-	
+	public void generarHijosAleatorios() throws Exception{
+		Random r = new Random();
+		Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
+				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};
+		//Primero generamos la raiz
+		if(raiz.getNumOperandos() == 2){
+			//Hijo izquierdo
+			ArbolOperaciones arbolIzq = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+			this.insertarIzq(arbolIzq);
+			this.insertarDer(arbolDer);
+		}
+		else if(raiz.getNumOperandos() == 1){
+			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+			this.insertarDer(arbolDer);
+		}	
+	}
+	public void forzarTamano() throws Exception{
+		if(raiz.getNumOperandos() == 2){
+			//Hijo izquierdo
+			this.insertarIzq(new ArbolOperaciones(Operacion.A));
+			this.insertarDer(new ArbolOperaciones(Operacion.A));
+			
+		}
+		else if(raiz.getNumOperandos() == 1){
+			this.insertarDer(new ArbolOperaciones(Operacion.A));
+		}	
+	}
 }

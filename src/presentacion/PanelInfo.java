@@ -548,4 +548,8 @@ public class PanelInfo extends javax.swing.JPanel {
 	private javax.swing.JTextField jTextFieldElite;
 	private javax.swing.JTextField jTextFieldProfundidad;
 	// End of variables declaration
+	public void setTexto(String mensaje, String estadisticas) {
+		jTextArea4.setText(mensaje + " " + estadisticas);
+		
+	}
 }

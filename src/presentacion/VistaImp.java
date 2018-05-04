@@ -71,13 +71,5 @@ public class VistaImp extends Vista {
 				+ System.getProperty("line.separator") + "Total mutaciones: " + totalMutaciones;
 		this.panelInfo.setTexto(mensaje, estadisticas);
 	}
-	@Override
-	public void pintaProgreso(int num) {
-		
-		this.panelInfo.setProgress(num);
-		this.frame.repaint();
-//		this.frame.repaint();
-		panelInfo.repaint();
-	}
 	
 }

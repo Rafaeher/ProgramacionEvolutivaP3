@@ -21,38 +21,44 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 	public void muta(GenotipoArbol genotipo, FenotipoArbol fenotipo, double prob_mutacion) {
 		Random r = new Random();
 		//Obtiene aleatoriamente una funcion a mutar (funcion de 1 elemento o de 2)
-		int funcion = r.nextInt(1);
+		int aux = r.nextInt(2);
 		//Obtiene el numero de nodos con esa funcion
-		int numFuncion = numFuncion(genotipo.getArbol(), funcion);
+		int numFunciones = numFuncion(genotipo.getArbol(), aux);
 		//Calcula cual de esos nodos va a mutar
-		int mutar = r.nextInt(numFuncion);
+		int mutar = r.nextInt(numFunciones) + 1;
 		
-		int numAux = 0;
-		boolean mutado = false;
-		while(!mutado){
-			genotipo.getArbol().
-		}
+		int numFuncion;
+		if(aux == 0) numFuncion = 1;
+		else numFuncion = 2;
+		
+		System.out.println("");
+		inorden(genotipo.getArbol(),numFuncion,mutar,0);
+		System.out.println("");
 		
 	}
 	
-	private void aux(ArbolOperaciones arbol, int funcion, int numFuncion, int numAux){
-		if(arbol.obtenerDer() != null || arbol.obtenerIzq() != null){
-			if(arbol.obtenerRaiz().getNumOperandos() == funcion){
-				if(numAux + 1 == numFuncion){
-					numAux = numAux+1;
-					
-				}
-				else{
-					if(arbol.obtenerIzq() != null){
-						aux(arbol.obtenerIzq(), funcion, numFuncion, numAux+1);
-					}
-					if(arbol.obtenerDer() != null){
-						aux(arbol.obtenerDer(), funcion, numFuncion, numAux+1);
-					}
-				}
-			}
-		}
-	}
+	
+	 private void inorden(ArbolOperaciones a, int funcion, int numFuncion, int numAux) {
+	        if (a != null && numAux <= numFuncion) {
+	        	if(a.obtenerRaiz().getNumOperandos() == funcion){
+	        		numAux += 1;
+	        		if(numAux == numFuncion){
+	        			//Mutacion
+	        			System.out.println("TOCA MUTAR");
+	        			a.setRaiz(mutacion(funcion));
+	        		}
+	        		else{
+	        			inorden(a.obtenerIzq(),funcion, numFuncion, numAux);
+	        			inorden(a.obtenerDer(),funcion, numFuncion, numAux);
+	        		}
+	        	}
+	        	else{
+	        		inorden(a.obtenerIzq(),funcion, numFuncion, numAux);
+        			inorden(a.obtenerDer(),funcion, numFuncion, numAux);
+	        	}
+	        }
+	    }
+
 	private int numFuncion(ArbolOperaciones arbol, int funcion){
 		switch(funcion){
 		case 0: return arbol.getNum_1();
@@ -61,4 +67,40 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 		}
 	}
 
+	private Operacion mutacion(int tipo){
+		Random r = new Random();
+		Operacion[] binarios = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV};
+		Operacion[] unarios = {Operacion.LOG,Operacion.SQRT,Operacion.OPUESTO};
+		if(tipo == 2){
+			return binarios[r.nextInt(binarios.length)];
+		}
+		else if(tipo == 1){
+			return unarios[r.nextInt(unarios.length)];
+		}
+		else return null;
+	}
+
+	public static void main(String args[])
+	{
+		
+		try {
+			ArbolOperaciones arbol = new ArbolOperaciones(Operacion.SQRT);
+			arbol.insertarDer(new ArbolOperaciones(Operacion.MUL));
+			arbol.obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
+			arbol.obtenerDer().insertarDer(new ArbolOperaciones(Operacion.MUL));
+			arbol.obtenerDer().obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
+			arbol.obtenerDer().obtenerDer().insertarDer(new ArbolOperaciones(Operacion.A));
+			System.out.println("");
+			GenotipoArbol genotipo = new GenotipoArbol();
+			genotipo.setArbol(arbol);
+			MutacionFuncionalSimple m = new MutacionFuncionalSimple();
+			m.muta(genotipo,null,0);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
+				
+	}
 }
