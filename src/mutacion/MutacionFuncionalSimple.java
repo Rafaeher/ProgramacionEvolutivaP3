@@ -26,33 +26,30 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 		int numFuncion = numFuncion(genotipo.getArbol(), funcion);
 		//Calcula cual de esos nodos va a mutar
 		int mutar = r.nextInt(numFuncion);
-		
-		int numAux = 0;
-		boolean mutado = false;
-		while(!mutado){
-			genotipo.getArbol().
-		}
+
+		inorden(genotipo.getArbol(),numFuncion,mutar,0);
+
 		
 	}
 	
-	private void aux(ArbolOperaciones arbol, int funcion, int numFuncion, int numAux){
-		if(arbol.obtenerDer() != null || arbol.obtenerIzq() != null){
-			if(arbol.obtenerRaiz().getNumOperandos() == funcion){
-				if(numAux + 1 == numFuncion){
-					numAux = numAux+1;
-					
-				}
-				else{
-					if(arbol.obtenerIzq() != null){
-						aux(arbol.obtenerIzq(), funcion, numFuncion, numAux+1);
-					}
-					if(arbol.obtenerDer() != null){
-						aux(arbol.obtenerDer(), funcion, numFuncion, numAux+1);
-					}
-				}
-			}
-		}
-	}
+	
+	 private void inorden(ArbolOperaciones a, int funcion, int numFuncion, int numAux) {
+	        if (a != null && numAux < numFuncion) {
+	        	if(a.obtenerRaiz().getNumOperandos() == funcion){
+	        		numAux += 1;
+	        		if(numAux == numFuncion){
+	        			//Mutacion
+	        			System.out.println("TOCA MUTAR");
+	        			a.setRaiz(mutacion(funcion));
+	        		}
+	        		else{
+	        			inorden(a.obtenerIzq(),funcion, numFuncion, numAux);
+	        			inorden(a.obtenerDer(),funcion, numFuncion, numAux);
+	        		}
+	        	}
+	        }
+	    }
+
 	private int numFuncion(ArbolOperaciones arbol, int funcion){
 		switch(funcion){
 		case 0: return arbol.getNum_1();
@@ -60,5 +57,19 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 		default: return 0;
 		}
 	}
+
+	private Operacion mutacion(int tipo){
+		Random r = new Random();
+		Operacion[] binarios = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV};
+		Operacion[] unarios = {Operacion.LOG,Operacion.SQRT,Operacion.OPUESTO};
+		if(tipo == 2){
+			return binarios[r.nextInt(binarios.length)];
+		}
+		else if(tipo == 1){
+			return unarios[r.nextInt(unarios.length)];
+		}
+		else return null;
+	}
+
 
 }
