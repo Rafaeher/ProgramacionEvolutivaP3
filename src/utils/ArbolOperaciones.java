@@ -264,18 +264,13 @@ public class ArbolOperaciones
 		t3 = new ArbolOperaciones(Operacion.A),
 		t4 = new ArbolOperaciones(Operacion.A),
 		t5 = new ArbolOperaciones(Operacion.A),
-		opuesto1 = new ArbolOperaciones(Operacion.OPUESTO, t1),
-		opuesto2 = new ArbolOperaciones(Operacion.OPUESTO, t2),
-		mul = new ArbolOperaciones(opuesto1, Operacion.MUL, opuesto2),
-		resta = new ArbolOperaciones(mul, Operacion.RESTA, t3),
-		sqrt = new ArbolOperaciones(Operacion.SQRT, t4),
-		div = new ArbolOperaciones(sqrt, Operacion.DIV, t5),
-		log = new ArbolOperaciones(Operacion.LOG, div),
-		suma = new ArbolOperaciones(resta, Operacion.SUMA, log);
+		mul1 = new ArbolOperaciones(t1, Operacion.MUL, t2),
+		mul2 = new ArbolOperaciones(t3, Operacion.MUL, mul1),
+		sqrt = new ArbolOperaciones(Operacion.SQRT, mul2);
 		
 		try
 		{	
-			System.out.println(suma.operar(1.0));
+			System.out.println(sqrt.operar(0.72));
 		}
 		catch(Exception e)
 		{
@@ -327,7 +322,7 @@ public class ArbolOperaciones
 			double resultDer = der.operar(valor);
 			if (raiz.getNumOperandos() == 2)
 			{
-				resultIzq = izq.operar(1.0);
+				resultIzq = izq.operar(valor);
 			}		
 
 			return opera(resultIzq, raiz, resultDer);
@@ -343,7 +338,7 @@ public class ArbolOperaciones
 		case SUMA: return valorIzq + valorDer;
 		case RESTA: return valorIzq - valorDer;
 		case MUL: return valorIzq * valorDer;
-		case DIV: return valorIzq * valorDer;
+		case DIV: return valorIzq / valorDer;
 		case LOG: return Math.log10(valorDer);
 		case SQRT: return Math.sqrt(valorDer);
 		case OPUESTO: return -valorDer;
