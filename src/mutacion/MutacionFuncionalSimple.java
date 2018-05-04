@@ -93,8 +93,9 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 			System.out.println("");
 			GenotipoArbol genotipo = new GenotipoArbol();
 			genotipo.setArbol(arbol);
-			MutacionFuncionalSimple m = new MutacionFuncionalSimple();
-			m.muta(genotipo,null,0);
+		//	MutacionFuncionalSimple m = new MutacionFuncionalSimple();
+		//	m.muta(genotipo,null,0);
+			System.out.println(arbol.operar(1.52));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
