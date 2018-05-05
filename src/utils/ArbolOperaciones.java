@@ -8,6 +8,7 @@ public class ArbolOperaciones
 {
 
 	private ArbolOperaciones arbolPadre;
+	private int nivel;
 	private Operacion raiz;
 	private ArbolOperaciones izq;
 	private ArbolOperaciones der;
@@ -19,6 +20,7 @@ public class ArbolOperaciones
 	
 	private void inicializar(ArbolOperaciones izq, Operacion raiz, ArbolOperaciones der)
 	{	
+		this.nivel = 1;
 		this.izq = izq;
 		this.raiz = raiz;
 		this.der = der;
@@ -126,6 +128,8 @@ public class ArbolOperaciones
 		
 		//actualizamos el valor de los que están por arriba
 		ArbolOperaciones padre = this.arbolPadre;
+		
+		nuevo.setNivel(this.nivel + 1);
 		while(padre != null)
 		{
 			padre.num_0 += nuevo.num_0;
@@ -412,5 +416,13 @@ public class ArbolOperaciones
 		{
 			result.arbolPadre.izq = nodo;
 		}
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}
 }

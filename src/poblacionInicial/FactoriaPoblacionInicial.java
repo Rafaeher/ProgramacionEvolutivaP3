@@ -26,9 +26,11 @@ public class FactoriaPoblacionInicial
 		for(int i = 0; i < 100; i++)
 		{
 			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
-			GenotipoArbol genotipo = new GenotipoArbol();
+			
 			ArbolOperaciones arbol = inicializacionAleatoria(5);
-			genotipo.setArbol(arbol);
+			GenotipoArbol genotipo = new GenotipoArbol(arbol);
+			genotipo.setProfundidadMaxima(configuracion.getProfundidadMaxima());
+		//	genotipo.setArbol(arbol);
 			FenotipoArbol fenotipo = new FenotipoArbol();
 			//Falta decodificar el arbol
 			individuo.setGenotipo(genotipo);
@@ -52,27 +54,25 @@ public class FactoriaPoblacionInicial
 		
 		nodos.add(arbol);
 		
-		while(!nodos.isEmpty() && arbol.getProfundidad() < max-1){
-			ArbolOperaciones arbolAux = nodos.remove();
-			if(arbolAux != null){
-				try {
-					arbolAux.generarHijosAleatorios();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				nodos.add(arbolAux.obtenerDer());
-				nodos.add(arbolAux.obtenerIzq());
-			}
-		}
 		while(!nodos.isEmpty()){
 			ArbolOperaciones arbolAux = nodos.remove();
 			if(arbolAux != null){
-				try {
-					arbolAux.forzarTamano();
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(arbolAux.getNivel() == max-1){
+					try {
+						arbolAux.forzarTamano();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-
+				else{
+					try {
+						arbolAux.generarHijosAleatorios();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					nodos.add(arbolAux.obtenerDer());
+					nodos.add(arbolAux.obtenerIzq());
+				}
 			}
 		}
 		return arbol;

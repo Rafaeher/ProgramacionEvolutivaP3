@@ -474,7 +474,7 @@ public class PanelInfo extends javax.swing.JPanel {
 			Mutacion_enum m = getMutacion(mutacion);
 
 			Configuracion c = new Configuracion(true, num_generaciones, prob_mutacion, r, m, s, g, cruceporcentaje,
-					tamano_poblacion, elite, "");
+					tamano_poblacion, elite, "", Integer.parseInt(jTextFieldProfundidad.getText()));
 
 			// jProgressBar1 = new JProgressBar(0, task.getLengthOfTask());
 			// jProgressBar1.setValue(0);

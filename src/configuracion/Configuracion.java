@@ -25,12 +25,14 @@ public class Configuracion {
 	private Seleccion_enum seleccion_seleccionada;
 	private int elite;
 	private String mensaje;
+	private int profundidadMaxima;
 
 
 	public Configuracion(boolean maximizar, int num_generaciones, double prob_mutacion,
 			Reproduccion_enum r, Mutacion_enum m, Seleccion_enum s, Genotipo_enum g, double probcruce,
-			int tamano_poblacion, int el, String mensajeE)
+			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima)
 	{
+		this.profundidadMaxima = profundidadMaxima;
 		this.maximizar = maximizar;
 		this.num_generaciones = num_generaciones;
 		this.prob_mutacion = prob_mutacion / 100;
@@ -116,6 +118,14 @@ public class Configuracion {
 	public String getMensaje()
 	{
 		return mensaje;
+	}
+
+	public int getProfundidadMaxima() {
+		return profundidadMaxima;
+	}
+
+	public void setProfundidadMaxima(int profundidadMaxima) {
+		this.profundidadMaxima = profundidadMaxima;
 	}
 	
 }
