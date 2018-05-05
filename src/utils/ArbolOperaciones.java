@@ -382,6 +382,44 @@ public class ArbolOperaciones
 		}
 	}
 	
+	private void eliminaNodo()
+	{
+		ArbolOperaciones hijo = this;
+		ArbolOperaciones padre = arbolPadre;
+		
+		if (padre != null)
+		{
+			if(padre.der == this)
+			{
+				padre.der = null;
+			}
+			else
+			{
+				padre.izq = null;
+			}
+			
+			while(padre != null)
+			{
+				padre.num_0 -= hijo.num_0;
+				padre.num_1 -= hijo.num_1;
+				padre.num_2 -= hijo.num_2;
+				
+				if(padre.der == hijo)
+				{
+					padre.profundidad = padre.izq.profundidad + 1;
+				}
+				else
+				{
+					padre.profundidad = padre.der.profundidad + 1;
+				}
+				
+				hijo = padre;
+				padre = hijo.arbolPadre;
+			}
+		}
+		
+	}
+	
 	public void reemplazaNodoK(int k, ArbolOperaciones nodo)
 	{
 		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
@@ -406,11 +444,13 @@ public class ArbolOperaciones
 		
 		if(result.arbolPadre.der == result)
 		{
-			result.arbolPadre.der = nodo;
+			result.arbolPadre.der.eliminaNodo();
+			result.arbolPadre.insertar(nodo, false);
 		}
 		else
 		{
-			result.arbolPadre.izq = nodo;
+			result.arbolPadre.izq.eliminaNodo();
+			result.arbolPadre.insertar(nodo, true);
 		}
 	}
 }
