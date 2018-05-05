@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class ArbolOperaciones 
@@ -240,6 +242,16 @@ public class ArbolOperaciones
 	{
 		return num_2;
 	}
+	
+	public int getNumNodos()
+	{
+		return num_0 + num_1 + num_2;
+	}
+	
+	public int getNumOperandos()
+	{
+		return raiz.getNumOperandos();
+	}
 
 	public void setNum_2(int num_2)
 	{
@@ -327,8 +339,31 @@ public class ArbolOperaciones
 
 			return opera(resultIzq, raiz, resultDer);
 		}
+	}
+	
+	public ArbolOperaciones buscaNodoK(int k)
+	{
+		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
+		ArbolOperaciones result = null;
+		cola.add(this);
 		
+		while(k != 0)
+		{
+			result = cola.poll();		
+			k--;
+			
+			if (result.izq != null)
+			{
+				cola.add(result.izq);
+			}
+			
+			if (result.der != null)
+			{
+				cola.add(result.der);
+			}
+		}
 		
+		return result;
 	}
 	
 	private static double opera(double valorIzq, Operacion operacion, double valorDer)
@@ -344,6 +379,38 @@ public class ArbolOperaciones
 		case OPUESTO: return -valorDer;
 		case A: throw new IllegalArgumentException("A es terminal, no una operación");
 		default: throw new IllegalArgumentException("La operación no está definida para operarse en " + ArbolOperaciones.class.getName());
+		}
+	}
+	
+	public void reemplazaNodoK(int k, ArbolOperaciones nodo)
+	{
+		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
+		ArbolOperaciones result = null;
+		cola.add(this);
+		
+		while(k != 0)
+		{
+			result = cola.poll();
+			k--;
+			
+			if (result.izq != null)
+			{
+				cola.add(result.izq);
+			}
+			
+			if (result.der != null)
+			{
+				cola.add(result.der);
+			}
+		}
+		
+		if(result.arbolPadre.der == result)
+		{
+			result.arbolPadre.der = nodo;
+		}
+		else
+		{
+			result.arbolPadre.izq = nodo;
 		}
 	}
 }
