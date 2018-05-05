@@ -61,21 +61,35 @@ public class FuncionArbol<GenotipoFD extends Genotipo> extends Funcion<GenotipoF
 	@Override
 	public Individuo<GenotipoFD, FenotipoArbol, FitnessReal> mejor(
 			ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion) {
-		// TODO Auto-generated method stub
-		return null;
+
+
+			Individuo<GenotipoFD, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
+			for (int i = 0; i < poblacion.size(); i++) {
+				if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
+					mejor = poblacion.get(i);
+			}
+			return mejor.cloneIndividuo();
+		
 	}
 
 	@Override
 	public Individuo<GenotipoFD, FenotipoArbol, FitnessReal> peor(
 			ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion) {
-		// TODO Auto-generated method stub
-		return null;
+
+
+
+		Individuo<GenotipoFD, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
+		for (int i = 0; i < poblacion.size(); i++) {
+			if (poblacion.get(i).getFitness().getValor() < peor.getFitness().getValor())
+				peor = poblacion.get(i);
+		}
+		return peor.cloneIndividuo();
+		
 	}
 
 	@Override
 	public boolean getMaximizar() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
