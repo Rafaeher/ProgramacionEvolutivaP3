@@ -12,13 +12,6 @@ public class GenotipoArbol implements Genotipo {
 		this.arbol = arbol;
 	}
 	
-	@Override
-	public Genotipo cloneGenotipo()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public ArbolOperaciones getArbol()
 	{
 		return arbol;
@@ -40,6 +33,15 @@ public class GenotipoArbol implements Genotipo {
 
 	public void setProfundidadMaxima(int profundidadMaxima) {
 		this.profundidadMaxima = profundidadMaxima;
+	}
+
+	@Override
+	public Genotipo cloneGenotipo()
+	{
+		GenotipoArbol clon = new GenotipoArbol((ArbolOperaciones) arbol.clone());
+		clon.profundidadMaxima = profundidadMaxima;
+		
+		return clon;
 	}
 
 }
