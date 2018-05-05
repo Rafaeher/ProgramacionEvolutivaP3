@@ -49,8 +49,23 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		int indice1 = random.nextInt(arbol1.getNumNodos()), indice2 = random.nextInt(arbol2.getNumNodos());
 		ArbolOperaciones nodo1 = arbol1.buscaNodoK(indice1), nodo2 = arbol2.buscaNodoK(indice2);
 		
-		arbol1.reemplazaNodoK(indice1, nodo2);
-		arbol2.reemplazaNodoK(indice2, nodo1);
+		try
+		{
+			arbol1.reemplazaNodoK(indice1, nodo2);
+		}
+		catch(Exception e)
+		{
+			arbol1 = nodo2;
+		}
+		
+		try
+		{
+			arbol2.reemplazaNodoK(indice2, nodo1);
+		}
+		catch(Exception e)
+		{
+			arbol2 = nodo1;
+		}
 		
 		GenotipoArbol genotipo1 = new GenotipoArbol(arbol1), genotipo2 = new GenotipoArbol(arbol2);
 		Individuo<GenotipoArbol, FenotipoCA, FitnessCA> nuevoIndividuo1 = individuo1.cloneIndividuo(),
