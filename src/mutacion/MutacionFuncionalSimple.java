@@ -25,15 +25,18 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 		//Obtiene el numero de nodos con esa funcion
 		int numFunciones = numFuncion(genotipo.getArbol(), aux);
 		//Calcula cual de esos nodos va a mutar
-		int mutar = r.nextInt(numFunciones) + 1;
+		if(numFunciones > 0){
+			int mutar = r.nextInt(numFunciones) + 1;
+			
+			int numFuncion;
+			if(aux == 0) numFuncion = 1;
+			else numFuncion = 2;
+			
+			System.out.println("");
+			inorden(genotipo.getArbol(),numFuncion,mutar,0);
+			System.out.println("");
+		}
 		
-		int numFuncion;
-		if(aux == 0) numFuncion = 1;
-		else numFuncion = 2;
-		
-		System.out.println("");
-		inorden(genotipo.getArbol(),numFuncion,mutar,0);
-		System.out.println("");
 		
 	}
 	

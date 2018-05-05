@@ -162,7 +162,7 @@ public class PanelInfo extends javax.swing.JPanel {
 
 		jComboBoxMutacion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 		jComboBoxMutacion.setModel(new javax.swing.DefaultComboBoxModel<>(
-				new String[] { "De arbol", "Funcional simple", "Terminal simple" }));
+				new String[] {"Funcional simple", "De arbol", "Terminal simple" }));
 		jComboBoxMutacion.setToolTipText("Selecciona un mecanismo de cruce");
 		jComboBoxMutacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		jComboBoxMutacion.addActionListener(new java.awt.event.ActionListener() {
@@ -387,6 +387,7 @@ public class PanelInfo extends javax.swing.JPanel {
 
 	private void cosasPorDefecto() {
 
+		this.jTextFieldProfundidad.setText("5");
 		this.jTextFieldPoblacion.setText("300");
 		this.jTextFieldCruceporcentaje.setText("60");
 		this.jTextFieldGeneraciones.setText("200");
@@ -507,11 +508,11 @@ public class PanelInfo extends javax.swing.JPanel {
 
 	private Mutacion_enum getMutacion(String s) {
 		switch (s) {
-		case "Mutacion de arbol":
+		case "De arbol":
 			return Mutacion_enum.MUTACION_DE_ARBOL;
-		case "Mutacion funcional simple":
+		case "Funcional simple":
 			return Mutacion_enum.MUTACION_FUNCIONAL_SIMPLE;
-		case "Mutacion terminal simple":
+		case "Terminal simple":
 			return Mutacion_enum.MUTACION_TERMINAL_SIMPLE;
 
 		default:
