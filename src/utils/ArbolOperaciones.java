@@ -348,7 +348,7 @@ public class ArbolOperaciones
 	public ArbolOperaciones buscaNodoK(int k)
 	{
 		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
-		ArbolOperaciones result = null;
+		ArbolOperaciones result = this;
 		cola.add(this);
 		
 		while(k != 0)
@@ -412,10 +412,21 @@ public class ArbolOperaciones
 		}
 	}
 	
-	public void reemplazaNodoK(int k, ArbolOperaciones nodo)
+	/**
+	 * Se debe reemplazar uno de los nodos del árbol que no sea la raíz
+	 * 
+	 * @param k un entero mayor a 0
+	 * @param nodo
+	 */
+	public void reemplazaNodoK(int k, ArbolOperaciones nodo) throws Exception
 	{
+		if (k == 0)
+		{
+			throw new Exception("No se puede reemplazar la raíz");
+		}
+		
 		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
-		ArbolOperaciones result = null;
+		ArbolOperaciones result = this;
 		cola.add(this);
 		
 		while(k != 0)
@@ -434,23 +445,16 @@ public class ArbolOperaciones
 			}
 		}
 		
-		if (result.arbolPadre != null)
+		if(result.arbolPadre.der == result)
 		{
-			if(result.arbolPadre.der == result)
-			{
-				result.arbolPadre.der = nodo;
-			}
-			else
-			{
-				result.arbolPadre.izq = nodo;
-			}
-			
-			result.actualizarPadres();
+			result.arbolPadre.der = nodo;
 		}
 		else
 		{
-			result = nodo;
+			result.arbolPadre.izq = nodo;
 		}
+			
+		result.actualizarPadres();
 	}
 	
 	public String toString()
