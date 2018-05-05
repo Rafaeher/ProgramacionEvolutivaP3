@@ -5,10 +5,13 @@ import java.util.Random;
 
 import configuracion.Configuracion;
 import fenotipo.Fenotipo;
+import fenotipo.FenotipoArbol;
 import fitness.Fitness;
+import fitness.FitnessReal;
 import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
+import utils.Operacion;
 
 public class CruceArbol<FenotipoCA extends Fenotipo, FitnessCA extends Fitness>
 implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
@@ -59,5 +62,48 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		poblacionFinal.add(individuo1);
 		poblacionFinal.add(individuo2);
 	}
+	
+	public static void main(String args[])
+	{
+		FenotipoArbol fenotipo1 = new FenotipoArbol(), fenotipo2 = new FenotipoArbol();
+		FitnessReal fitness1 = new FitnessReal(0.0), fitness2 = new FitnessReal(0.0);
+		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> ind1 = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>(null, fenotipo1, fitness1),
+		ind2 = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>(null, fenotipo2, fitness2);
+		
+		ArbolOperaciones
+		t1 = new ArbolOperaciones(Operacion.A),
+		t2 = new ArbolOperaciones(Operacion.A),
+		t3 = new ArbolOperaciones(Operacion.A),
+		t4 = new ArbolOperaciones(Operacion.A),
+		t5 = new ArbolOperaciones(Operacion.A),
+		mul1 = new ArbolOperaciones(t1, Operacion.MUL, t2),
+		mul2 = new ArbolOperaciones(t3, Operacion.MUL, mul1),
+		sqrt = new ArbolOperaciones(Operacion.SQRT, mul2);
+		
+		ArbolOperaciones t6 = new ArbolOperaciones(Operacion.A),
+		t7 = new ArbolOperaciones(Operacion.A),
+		t8 = new ArbolOperaciones(Operacion.A),
+		t9 = new ArbolOperaciones(Operacion.A),
+		t10 = new ArbolOperaciones(Operacion.A),
+		mul3 = new ArbolOperaciones(t6, Operacion.MUL, t7),
+		mul4 = new ArbolOperaciones(t8, Operacion.MUL, mul3),
+		sqrt2 = new ArbolOperaciones(Operacion.SQRT, mul4);
+		
+		GenotipoArbol genotipo1 = new GenotipoArbol(sqrt), genotipo2 = new GenotipoArbol(sqrt2);
+		ind1.setGenotipo(genotipo1);
+		ind2.setGenotipo(genotipo2);
+		
+		ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacionFinal = new ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>();
+		Random rand = new Random();
+		
+		CruceArbol<FenotipoArbol, FitnessReal> cruce = new CruceArbol<FenotipoArbol, FitnessReal>();
+		
+		cruce.cruza(ind1, ind2, poblacionFinal, rand);
+		
+		System.out.println(poblacionFinal.get(0).getGenotipo().getArbol());
+		System.out.println(poblacionFinal.get(1).getGenotipo().getArbol());
+	}
+	
+	
 
 }

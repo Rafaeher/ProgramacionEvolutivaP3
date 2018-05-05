@@ -386,6 +386,32 @@ public class ArbolOperaciones
 		}
 	}
 	
+	private void actualizarPadres()
+	{
+		ArbolOperaciones padre = arbolPadre;
+		
+		while(padre != null)
+		{
+			int num_0I = 0, num_1I = 0, num_2I = 0, profundidadI = 0;
+			
+			if (padre.izq != null)
+			{
+				num_0I = padre.izq.num_0;
+				num_1I = padre.izq.num_1;
+				num_2I = padre.izq.num_2;
+				profundidadI = padre.izq.profundidad;
+			}
+			
+			padre.num_0 = Math.max(num_0I, padre.der.num_0);
+			padre.num_1 = Math.max(num_1I, padre.der.num_1);
+			padre.num_2 = Math.max(num_2I, padre.der.num_2);
+			padre.actualizarContadores(raiz);
+			padre.profundidad = Math.max(profundidadI, padre.der.profundidad) + 1;
+			
+			padre = padre.arbolPadre;
+		}
+	}
+	
 	public void reemplazaNodoK(int k, ArbolOperaciones nodo)
 	{
 		Queue<ArbolOperaciones> cola = new LinkedList<ArbolOperaciones>();
@@ -408,13 +434,33 @@ public class ArbolOperaciones
 			}
 		}
 		
-		if(result.arbolPadre.der == result)
+		if (result.arbolPadre != null)
 		{
-			result.arbolPadre.der = nodo;
+			if(result.arbolPadre.der == result)
+			{
+				result.arbolPadre.der = nodo;
+			}
+			else
+			{
+				result.arbolPadre.izq = nodo;
+			}
+			
+			result.actualizarPadres();
 		}
 		else
 		{
-			result.arbolPadre.izq = nodo;
+			result = nodo;
+		}
+	}
+	
+	public String toString()
+	{
+		switch(raiz.getNumOperandos())
+		{
+		case 0: return raiz.getMensaje();
+		case 1: return raiz.getMensaje() + "(" + der.toString() + ")";
+		case 2: return "(" + izq.toString() + " " + raiz.getMensaje() + " " + der.toString() + ")";
+		default: return "Operador no definido";
 		}
 	}
 
