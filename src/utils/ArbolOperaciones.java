@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -39,6 +40,7 @@ public class ArbolOperaciones
 			this.num_2 += izq.num_2;
 			this.profundidad = Math.max(this.profundidad, izq.profundidad + 1);
 			izq.arbolPadre = this;
+			izq.actualizarNivel(this.nivel);
 		}
 		
 		if (der != null)
@@ -48,9 +50,32 @@ public class ArbolOperaciones
 			this.num_2 += der.num_2;
 			this.profundidad = Math.max(this.profundidad, der.profundidad + 1);
 			der.arbolPadre = this;
+			der.actualizarNivel(this.nivel);
 		}
 	}
 	
+	private void actualizarNivel(int nivel)
+	{
+		if (arbolPadre == null)
+		{
+			this.nivel = 1;
+		}
+		else
+		{
+			this.nivel = arbolPadre.nivel + 1;
+		}
+		
+		if(izq != null)
+		{
+			izq.actualizarNivel(this.nivel);
+		}
+		
+		if(der != null)
+		{
+			der.actualizarNivel(this.nivel);
+		}
+	}
+
 	private void actualizarContadores(Operacion op)
 	{
 		switch(op.getNumOperandos())
@@ -94,6 +119,8 @@ public class ArbolOperaciones
 	
 	private void insertar(ArbolOperaciones nuevo, boolean insertarIzq)
 	{
+
+		
 		if (insertarIzq)
 		{
 			this.izq = nuevo;
@@ -104,6 +131,7 @@ public class ArbolOperaciones
 		}
 		
 		nuevo.arbolPadre = this;
+		nuevo.actualizarNivel(this.nivel);
 		
 		//Ponemos la profundidad 
 		int sizeIzq, sizeDer;
@@ -129,7 +157,6 @@ public class ArbolOperaciones
 		//actualizamos el valor de los que están por arriba
 		ArbolOperaciones padre = this.arbolPadre;
 		
-		nuevo.setNivel(this.nivel + 1);
 		while(padre != null)
 		{
 			padre.num_0 += nuevo.num_0;
@@ -412,13 +439,70 @@ public class ArbolOperaciones
 		}
 	}
 	
+	private void recorta(int maxProfundidad)
+	{
+		if (arbolPadre == null)
+		{
+			nivel = 1;
+		}
+		else
+		{
+			nivel = arbolPadre.nivel + 1;
+		}
+		
+		switch(raiz.getNumOperandos())
+		{
+		case 1: der.recorta(maxProfundidad); break;
+		case 2: izq.recorta(maxProfundidad); der.recorta(maxProfundidad); break;
+		default: break;
+		}
+		
+		if (nivel < maxProfundidad)
+		{
+			switch(raiz.getNumOperandos())
+			{
+			case 0:
+				profundidad = 1;
+				num_0 = 1;
+				num_1 = 0;
+				num_2 = 0;
+				break;
+				
+			case 1:
+				profundidad = der.profundidad + 1;
+				num_0 = der.num_0;
+				num_1 = der.num_1 + 1;
+				num_2 = der.num_2;
+				break;
+				
+			case 2:
+				profundidad = Math.max(izq.profundidad, der.profundidad) + 1;
+				num_0 = izq.num_0 + der.num_0;
+				num_1 = izq.num_1 + der.num_1;
+				num_2 = izq.num_2 + der.num_2 + 1;
+				break;
+			}
+		}
+		else
+		{
+			raiz = Operacion.A;
+			izq = null;
+			der = null;
+			profundidad = 1;
+			num_0 = 1;
+			num_1 = 0;
+			num_2 = 0;
+		}
+	}
+	
 	/**
 	 * Se debe reemplazar uno de los nodos del árbol que no sea la raíz
 	 * 
 	 * @param k un entero mayor a 0
 	 * @param nodo
+	 * @param maxProfundidad
 	 */
-	public void reemplazaNodoK(int k, ArbolOperaciones nodo) throws Exception
+	public void reemplazaNodoK(int k, ArbolOperaciones nodo, int maxProfundidad) throws Exception
 	{
 		if (k == 0)
 		{
@@ -445,16 +529,20 @@ public class ArbolOperaciones
 			}
 		}
 		
+		nodo.recorta(maxProfundidad - result.arbolPadre.nivel + nodo.nivel - 1);
+		
 		if(result.arbolPadre.der == result)
 		{
 			result.arbolPadre.der = nodo;
+			
+			result.arbolPadre.der.actualizarPadres();
 		}
 		else
 		{
 			result.arbolPadre.izq = nodo;
-		}
 			
-		result.actualizarPadres();
+			result.arbolPadre.izq.actualizarPadres();
+		}
 	}
 	
 	public String toString()
@@ -474,5 +562,29 @@ public class ArbolOperaciones
 
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
+	}
+	
+	public ArrayList<ArbolOperaciones> getNodosPorNiveles()
+	{
+		ArrayList<ArbolOperaciones> nodos = new ArrayList<ArbolOperaciones>();
+		
+		nodos.add(this);
+		
+		for(int i = 0; i < nodos.size(); i++)
+		{
+			ArbolOperaciones nodo = nodos.get(i);
+			
+			if(nodo.izq != null)
+			{
+				nodos.add(nodo.izq);
+			}
+			
+			if(nodo.der != null)
+			{
+				nodos.add(nodo.der);
+			}
+		}
+		
+		return nodos;
 	}
 }

@@ -40,9 +40,10 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		return numCruces;
 	}
 
+	/*
 	private void cruza(Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo1,
 			Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo2,
-			ArrayList<Individuo<GenotipoArbol, FenotipoCA, FitnessCA>> poblacionFinal, Random random)
+			ArrayList<Individuo<GenotipoArbol, FenotipoCA, FitnessCA>> poblacionFinal, Random random, int profundidadMax)
 	{
 		ArbolOperaciones arbol1 = (ArbolOperaciones) individuo1.getGenotipo().getArbol().clone(),
 				arbol2 = (ArbolOperaciones) individuo2.getGenotipo().getArbol().clone();
@@ -51,7 +52,7 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		
 		try
 		{
-			arbol1.reemplazaNodoK(indice1, nodo2);
+			arbol1.reemplazaNodoK(indice1, nodo2, profundidadMax);
 		}
 		catch(Exception e)
 		{
@@ -60,7 +61,7 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		
 		try
 		{
-			arbol2.reemplazaNodoK(indice2, nodo1);
+			arbol2.reemplazaNodoK(indice2, nodo1, profundidadMax);
 		}
 		catch(Exception e)
 		{
@@ -76,6 +77,100 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 
 		poblacionFinal.add(individuo1);
 		poblacionFinal.add(individuo2);
+	}
+	*/
+	
+	private void cruza(Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo1,
+			Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo2,
+			ArrayList<Individuo<GenotipoArbol, FenotipoCA, FitnessCA>> poblacionFinal, Random random)
+	{
+		ArbolOperaciones arbol1 = (ArbolOperaciones) individuo1.getGenotipo().getArbol().clone(),
+				arbol2 = (ArbolOperaciones) individuo2.getGenotipo().getArbol().clone();
+		
+		
+		ArrayList<ArbolOperaciones> nodos1 = arbol1.getNodosPorNiveles(), nodos2 = arbol2.getNodosPorNiveles();
+		int indice1 = random.nextInt(nodos1.size());	
+		ArbolOperaciones nodo1 = arbol1.buscaNodoK(indice1);
+		
+		int numNodos2 = 0;
+		while(numNodos2 < nodos2.size() && nodos2.get(numNodos2).getNivel() <= nodo1.getNivel())
+		{
+			numNodos2++;
+		}
+		
+		int indice2 = random.nextInt(numNodos2);
+		ArbolOperaciones nodo2 = arbol2.buscaNodoK(indice2), aux = (ArbolOperaciones) nodo2.clone();
+		
+		if (nodo1.getArbolPadre() != null)
+		{
+			if(nodo1.getArbolPadre().obtenerDer() == nodo1)
+			{
+				try
+				{
+					nodo1.getArbolPadre().insertarDer(nodo2);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				try
+				{
+					nodo1.getArbolPadre().insertarIzq(nodo2);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		else
+		{
+			arbol1 = nodo2;
+		}
+		
+		if (aux.getArbolPadre() != null)
+		{
+			if(aux.getArbolPadre().obtenerDer() == aux)
+			{
+				try
+				{
+					aux.getArbolPadre().insertarDer(nodo1);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				try
+				{
+					aux.getArbolPadre().insertarIzq(nodo1);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		else
+		{
+			aux = nodo1;
+		}
+		
+		GenotipoArbol genotipo1 = new GenotipoArbol(arbol1), genotipo2 = new GenotipoArbol(arbol2);
+		Individuo<GenotipoArbol, FenotipoCA, FitnessCA> nuevoIndividuo1 = individuo1.cloneIndividuo(),
+				nuevoIndividuo2 = individuo2.cloneIndividuo();
+		
+		individuo1.setGenotipo(genotipo1);
+		individuo2.setGenotipo(genotipo2);
+
+		poblacionFinal.add(individuo1);
+		poblacionFinal.add(individuo2);
+		
 	}
 	
 	public static void main(String args[])
@@ -112,6 +207,7 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		Random rand = new Random();
 		
 		CruceArbol<FenotipoArbol, FitnessReal> cruce = new CruceArbol<FenotipoArbol, FitnessReal>();
+		
 		
 		cruce.cruza(ind1, ind2, poblacionFinal, rand);
 		
