@@ -1,6 +1,7 @@
 package funcion;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import configuracion.Configuracion;
 import fenotipo.FenotipoArbol;
@@ -10,17 +11,21 @@ import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
 
-public class FuncionArbol<GenotipoFD extends Genotipo> extends Funcion<GenotipoFD, FenotipoArbol, FitnessReal> {
+public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> {
+	
+	private double fitnessPoblacion;
 
-	public FuncionArbol(ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion,
+	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion,
 			Configuracion configuracion) {
 
 		super(poblacion, configuracion);
+		fitnessPoblacion = calculaMediaTamPoblacion(poblacion);
 
 	}
 
 	@Override
-	public void algEvalua(ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion) {
+	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
+		
 		for (int i = 0; i < poblacion.size(); i++) {
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
 			double fitness = evalua(genotipo.getArbol());
@@ -55,15 +60,22 @@ public class FuncionArbol<GenotipoFD extends Genotipo> extends Funcion<GenotipoF
 		if (arbol.operar(19.1) >= 83.4 && arbol.operar(19.1) < 83.6) {
 			fitness += 1.0;
 		}
+		
+		if(arbol.getProfundidad() > this.fitnessPoblacion){
+			Random r = new Random();
+			if(r.nextDouble() > 0.5){
+				return fitness / 10;
+			}
+		}
 		return fitness;
 	}
 
 	@Override
-	public Individuo<GenotipoFD, FenotipoArbol, FitnessReal> mejor(
-			ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion) {
+	public Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor(
+			ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 
 
-			Individuo<GenotipoFD, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
+			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
 			for (int i = 0; i < poblacion.size(); i++) {
 				if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
 					mejor = poblacion.get(i);
@@ -73,12 +85,12 @@ public class FuncionArbol<GenotipoFD extends Genotipo> extends Funcion<GenotipoF
 	}
 
 	@Override
-	public Individuo<GenotipoFD, FenotipoArbol, FitnessReal> peor(
-			ArrayList<Individuo<GenotipoFD, FenotipoArbol, FitnessReal>> poblacion) {
+	public Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor(
+			ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 
 
 
-		Individuo<GenotipoFD, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
+		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
 			if (poblacion.get(i).getFitness().getValor() < peor.getFitness().getValor())
 				peor = poblacion.get(i);
@@ -90,6 +102,15 @@ public class FuncionArbol<GenotipoFD extends Genotipo> extends Funcion<GenotipoF
 	@Override
 	public boolean getMaximizar() {
 		return true;
+	}
+	
+	private double calculaMediaTamPoblacion(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion){
+		double media = 0.0;
+		for(int i = 0; i < poblacion.size(); i++){
+			media += poblacion.get(i).getGenotipo().getArbol().getProfundidad();
+		}
+		media /= poblacion.size();
+		return media;
 	}
 
 }

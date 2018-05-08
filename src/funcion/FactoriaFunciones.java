@@ -15,9 +15,10 @@ public class FactoriaFunciones<GenotipoALF extends Genotipo, FenotipoALF extends
 			Configuracion config)
     {
 		
+		Funcion<?, ?, ?> funcion = null;
     	switch(f)
 		{
-    	default: return new FuncionArbol(poblacion,config);
+    	default: funcion = (Funcion<?, ?, ?>) new FuncionArbol(poblacion,config); break;
 		}
     }
 }
