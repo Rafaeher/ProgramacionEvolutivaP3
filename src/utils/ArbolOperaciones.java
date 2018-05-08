@@ -538,7 +538,7 @@ public class ArbolOperaciones
 			}
 		}
 		
-		nodo.recorta(maxProfundidad - result.arbolPadre.nivel + nodo.nivel - 1);
+	//	nodo.recorta(maxProfundidad - result.arbolPadre.nivel + nodo.nivel - 1);
 		
 		if(result.arbolPadre.der == result)
 		{
