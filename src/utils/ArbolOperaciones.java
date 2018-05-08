@@ -309,11 +309,13 @@ public class ArbolOperaciones
 		t5 = new ArbolOperaciones(Operacion.A),
 		mul1 = new ArbolOperaciones(t1, Operacion.MUL, t2),
 		mul2 = new ArbolOperaciones(t3, Operacion.MUL, mul1),
-		sqrt = new ArbolOperaciones(Operacion.SQRT, mul2);
+		sqrt = new ArbolOperaciones(Operacion.SQRT, mul2),
+		nuevo = new ArbolOperaciones(Operacion.A);
 		
 		try
 		{	
-			System.out.println(sqrt.operar(0.72));
+			//nuevo.reemplazaNodoK(1, sqrt, 2);
+			System.out.println(nuevo);
 		}
 		catch(Exception e)
 		{
@@ -539,8 +541,7 @@ public class ArbolOperaciones
 		}
 		else
 		{
-			result.arbolPadre.izq = nodo;
-			
+			result.arbolPadre.izq = nodo;	
 			result.arbolPadre.izq.actualizarPadres();
 		}
 	}

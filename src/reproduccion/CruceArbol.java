@@ -33,14 +33,14 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 				int index1 = random.nextInt(poblacionInicial.size()), index2 = random.nextInt(poblacionInicial.size());
 				Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo1 = poblacionInicial.get(index1),
 						individuo2 = poblacionInicial.get(index2);
-				cruza(individuo1, individuo2, poblacionFinal, random);
+				cruza(individuo1, individuo2, poblacionFinal, random, c.getProfundidadMaxima());
 			}
 		}
 		
 		return numCruces;
 	}
 
-	/*
+	
 	private void cruza(Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo1,
 			Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo2,
 			ArrayList<Individuo<GenotipoArbol, FenotipoCA, FitnessCA>> poblacionFinal, Random random, int profundidadMax)
@@ -78,8 +78,9 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		poblacionFinal.add(individuo1);
 		poblacionFinal.add(individuo2);
 	}
-	*/
 	
+	
+	/*
 	private void cruza(Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo1,
 			Individuo<GenotipoArbol, FenotipoCA, FitnessCA> individuo2,
 			ArrayList<Individuo<GenotipoArbol, FenotipoCA, FitnessCA>> poblacionFinal, Random random)
@@ -171,7 +172,7 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		poblacionFinal.add(individuo1);
 		poblacionFinal.add(individuo2);
 		
-	}
+	}*/
 	
 	public static void main(String args[])
 	{
@@ -209,7 +210,7 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		CruceArbol<FenotipoArbol, FitnessReal> cruce = new CruceArbol<FenotipoArbol, FitnessReal>();
 		
 		
-		cruce.cruza(ind1, ind2, poblacionFinal, rand);
+		cruce.cruza(ind1, ind2, poblacionFinal, rand, 1);
 		
 		System.out.println(poblacionFinal.get(0).getGenotipo().getArbol());
 		System.out.println(poblacionFinal.get(1).getGenotipo().getArbol());
