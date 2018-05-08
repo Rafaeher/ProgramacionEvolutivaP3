@@ -6,6 +6,7 @@ import configuracion.Configuracion;
 import fenotipo.*;
 import fitness.*;
 import genotipo.Genotipo;
+import genotipo.GenotipoArbol;
 import individuo.Individuo;
 
 public class FactoriaFunciones<GenotipoALF extends Genotipo, FenotipoALF extends Fenotipo, FitnessALF extends Fitness>{
@@ -16,9 +17,15 @@ public class FactoriaFunciones<GenotipoALF extends Genotipo, FenotipoALF extends
     {
 		
 		Funcion<?, ?, ?> funcion = null;
-    	switch(f)
+		
+		switch(f)
 		{
-    	default: funcion = (Funcion<?, ?, ?>) new FuncionArbol(poblacion,config); break;
+    	default:
+    		ArrayList<?> aux = poblacion;
+    		ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> aux2 = (ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>) aux;
+    		funcion = new FuncionArbol(aux2, config); break;
 		}
+		
+		return (Funcion<GenotipoALF, FenotipoALF, FitnessALF>) funcion;
     }
 }
