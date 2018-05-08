@@ -27,7 +27,7 @@ public class FactoriaPoblacionInicial
 		{
 			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
 			
-			ArbolOperaciones arbol = inicializacionAleatoria(5);
+			ArbolOperaciones arbol = inicializacionAleatoria(configuracion.getProfundidadMaxima());
 			GenotipoArbol genotipo = new GenotipoArbol(arbol);
 			genotipo.setProfundidadMaxima(configuracion.getProfundidadMaxima());
 		//	genotipo.setArbol(arbol);
@@ -57,7 +57,7 @@ public class FactoriaPoblacionInicial
 		while(!nodos.isEmpty()){
 			ArbolOperaciones arbolAux = nodos.remove();
 			if(arbolAux != null){
-				if(arbolAux.getNivel() == max-1){
+				if(arbolAux.getNivel() >= max-1){
 					try {
 						arbolAux.forzarTamano();
 					} catch (Exception e) {

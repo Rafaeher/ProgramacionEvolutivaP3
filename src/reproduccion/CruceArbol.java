@@ -210,10 +210,10 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		CruceArbol<FenotipoArbol, FitnessReal> cruce = new CruceArbol<FenotipoArbol, FitnessReal>();
 		
 		
-		cruce.cruza(ind1, ind2, poblacionFinal, rand, 1);
+		cruce.cruza(ind1, ind2, poblacionFinal, rand, 6);
 		
-		System.out.println(poblacionFinal.get(0).getGenotipo().getArbol());
-		System.out.println(poblacionFinal.get(1).getGenotipo().getArbol());
+		System.out.println(poblacionFinal.get(0).getGenotipo().getArbol() + " " + "Profundidad: " + poblacionFinal.get(0).getGenotipo().getArbol().getProfundidad());
+		System.out.println(poblacionFinal.get(1).getGenotipo().getArbol() + " " + "Profundidad: " + poblacionFinal.get(1).getGenotipo().getArbol().getProfundidad());
 	}
 	
 	
