@@ -23,9 +23,15 @@ public class Controlador {
 		FactoriaFunciones<GenotipoArbol, FenotipoArbol, FitnessReal> factoriaFunciones = new FactoriaFunciones<GenotipoArbol, FenotipoArbol, FitnessReal>();
 		Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> funcion = factoriaFunciones.getSeleccion(1, pob, c);
 		funcion.algoritmoGenetico();
-		/*Vista.getVista().repintaGrafica(funcion.getGeneraciones(), funcion.getmejoriteracion(), funcion.gety_mejor_total(),
-				funcion.getMedia(), funcion.getMejor().getFenotipo().getMensajeDecodificado(), funcion.getMejorAbsoluto(),
-				funcion.getPeorAbsoluto(), funcion.getTotalCruces(), funcion.getTotalMutaciones());*/
+		
+		if (funcion.getMejor().getGenotipo().getArbol().toString().length() > 50)
+		{
+			System.out.println("Profundidad: " + funcion.getMejor().getGenotipo().getArbol().getProfundidad());
+		}
+		
+		Vista.getVista().repintaGrafica(funcion.getGeneraciones(), funcion.getmejoriteracion(), funcion.gety_mejor_total(),
+				funcion.getMedia(), funcion.getMejor().getGenotipo().getArbol().toString(), funcion.getMejorAbsoluto(),
+				funcion.getPeorAbsoluto(), funcion.getTotalCruces(), funcion.getTotalMutaciones());
 	}
 	
 	

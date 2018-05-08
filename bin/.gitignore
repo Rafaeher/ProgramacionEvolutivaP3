@@ -1,10 +1,9 @@
+/presentacion/
+/decodificador/
+/fenotipo/
 /funcion/
 /genotipo/
-/individuo/
-/main/
 /mutacion/
-/poblacionInicial/
-/presentacion/
 /reproduccion/
-/seleccion/
 /utils/
+/poblacionInicial/
