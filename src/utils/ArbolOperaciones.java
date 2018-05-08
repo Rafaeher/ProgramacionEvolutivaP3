@@ -359,7 +359,14 @@ public class ArbolOperaciones
 	{
 		if (raiz.getNumOperandos() == 0)
 		{
-			return valor;
+			if (raiz == Operacion.A)
+			{
+				return valor;
+			}
+			else
+			{
+				return 1.0 / (new Random()).nextInt();
+			}
 		}
 		else
 		{

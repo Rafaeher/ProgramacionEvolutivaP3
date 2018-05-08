@@ -9,7 +9,8 @@ public enum Operacion
 	LOG(1, "log"),
 	SQRT(1, "sqrt"),
 	OPUESTO(1, "-"),
-	A(0, "A");
+	A(0, "A"),
+	B(0, "B");
 
 	private int numOperandos;
 	private String mensaje;
