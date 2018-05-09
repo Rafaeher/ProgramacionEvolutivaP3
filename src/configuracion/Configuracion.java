@@ -1,19 +1,9 @@
 package configuracion;
 
 public class Configuracion {
-	
-	//Minimo indica la cota mas baja
-	//private double minimo;
-	//Maximo indica la cota mas alta
-	//private double maximo;
-	//maximimar indica si la funcion es de maximizar o minimizar
 	//true -> maximizar
 	//false -> minimizar
 	private boolean maximizar;
-	//precision guarda el error (ej 0.0001)
-	//private double precision;
-	//numParametros indica el numero de parametros de la funcion
-	//private int numParametros;
 	//Guarda el numero maximo de generaciones que introduce el usario
 	private int num_generaciones;
 	//Probabilidad de mutación (introducida por el usuario)
@@ -26,11 +16,12 @@ public class Configuracion {
 	private int elite;
 	private String mensaje;
 	private int profundidadMaxima;
+	private Bloating_enum bloating_seleccionado;
 
 
 	public Configuracion(boolean maximizar, int num_generaciones, double prob_mutacion,
 			Reproduccion_enum r, Mutacion_enum m, Seleccion_enum s, Genotipo_enum g, double probcruce,
-			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima)
+			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima, Bloating_enum bloating_seleccionado)
 	{
 		this.profundidadMaxima = profundidadMaxima;
 		this.maximizar = maximizar;
@@ -43,7 +34,7 @@ public class Configuracion {
 		this.tamano_poblacion = tamano_poblacion;
 		this.elite = el;
 		this.mensaje = mensajeE;
-
+		this.bloating_seleccionado = bloating_seleccionado;
 	}
 
 	public boolean isMaximizar() {
@@ -126,6 +117,14 @@ public class Configuracion {
 
 	public void setProfundidadMaxima(int profundidadMaxima) {
 		this.profundidadMaxima = profundidadMaxima;
+	}
+
+	public Bloating_enum getBloating_seleccionado() {
+		return bloating_seleccionado;
+	}
+
+	public void setBloating_seleccionado(Bloating_enum bloating_seleccionado) {
+		this.bloating_seleccionado = bloating_seleccionado;
 	}
 	
 }

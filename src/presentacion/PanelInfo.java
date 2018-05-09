@@ -5,6 +5,7 @@ package presentacion;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
+import configuracion.Bloating_enum;
 import configuracion.Configuracion;
 import configuracion.Genotipo_enum;
 import configuracion.Mutacion_enum;
@@ -475,7 +476,7 @@ public class PanelInfo extends javax.swing.JPanel {
 			Mutacion_enum m = getMutacion(mutacion);
 
 			Configuracion c = new Configuracion(true, num_generaciones, prob_mutacion, r, m, s, g, cruceporcentaje,
-					tamano_poblacion, elite, "", Integer.parseInt(jTextFieldProfundidad.getText()));
+					tamano_poblacion, elite, "", Integer.parseInt(jTextFieldProfundidad.getText()),Bloating_enum.TARPEIAN);
 
 			// jProgressBar1 = new JProgressBar(0, task.getLengthOfTask());
 			// jProgressBar1.setValue(0);

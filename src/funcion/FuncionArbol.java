@@ -1,25 +1,24 @@
 package funcion;
 
 import java.util.ArrayList;
-import java.util.Random;
 
+import bloating.FactoriaBloating;
 import configuracion.Configuracion;
 import fenotipo.FenotipoArbol;
 import fitness.FitnessReal;
-import genotipo.Genotipo;
 import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
 
 public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> {
-	
-	private double fitnessPoblacion;
 
+	private Configuracion configuracion;
+	
 	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion,
 			Configuracion configuracion) {
 
 		super(poblacion, configuracion);
-		fitnessPoblacion = calculaMediaTamPoblacion(poblacion);
+		this.configuracion = configuracion;
 
 	}
 
@@ -32,6 +31,8 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 			poblacion.get(i).setFitness(new FitnessReal(fitness));
 		}
 
+		FactoriaBloating factoria = new FactoriaBloating();
+		factoria.getBloating(this.configuracion.getBloating_seleccionado()).setFitnessConBloating(poblacion, configuracion);
 	}
 
 	private double evalua(ArbolOperaciones arbol) {
@@ -59,13 +60,6 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 		// Urano
 		if (arbol.operar(19.1) >= 83.4 && arbol.operar(19.1) < 83.6) {
 			fitness += 1.0;
-		}
-		
-		if(arbol.getProfundidad() > this.fitnessPoblacion){
-			Random r = new Random();
-			if(r.nextDouble() > 0.5){
-				return fitness / 10;
-			}
 		}
 		return fitness;
 	}
@@ -102,15 +96,6 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 	@Override
 	public boolean getMaximizar() {
 		return true;
-	}
-	
-	private double calculaMediaTamPoblacion(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion){
-		double media = 0.0;
-		for(int i = 0; i < poblacion.size(); i++){
-			media += poblacion.get(i).getGenotipo().getArbol().getProfundidad();
-		}
-		media /= poblacion.size();
-		return media;
 	}
 
 }
