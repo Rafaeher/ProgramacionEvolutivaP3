@@ -326,18 +326,19 @@ public class ArbolOperaciones
 	
 	public void generarHijosAleatorios() throws Exception{
 		Random r = new Random();
-		Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
-				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};
+		ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
+		/*Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
+				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};*/
 		//Primero generamos la raiz
 		if(raiz.getNumOperandos() == 2){
 			//Hijo izquierdo
-			ArbolOperaciones arbolIzq = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
-			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+			ArbolOperaciones arbolIzq = new ArbolOperaciones(operandos.get(r.nextInt(operandos.size())));
+			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos.get(r.nextInt(operandos.size())));
 			this.insertarIzq(arbolIzq);
 			this.insertarDer(arbolDer);
 		}
 		else if(raiz.getNumOperandos() == 1){
-			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+			ArbolOperaciones arbolDer = new ArbolOperaciones(operandos.get(r.nextInt(operandos.size())));
 			this.insertarDer(arbolDer);
 		}	
 	}

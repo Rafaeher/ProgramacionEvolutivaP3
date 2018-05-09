@@ -12,6 +12,7 @@ import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
 import utils.Operacion;
+import utils.OperacionesSeleccionadas;
 
 public class FactoriaPoblacionInicial
 {
@@ -46,10 +47,13 @@ public class FactoriaPoblacionInicial
 	private ArbolOperaciones inicializacionAleatoria(int max)
 	{
 		Random r = new Random();
-		Operacion[] operandos = Operacion.values();
+		ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
+	//	Operacion[] operandos = Operacion.values();
 		
-		ArbolOperaciones arbol = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
+	//	ArbolOperaciones arbol = new ArbolOperaciones(operandos[r.nextInt(operandos.length)]);
 		
+		ArbolOperaciones arbol = new ArbolOperaciones(operandos.get(r.nextInt(operandos.size())));
+
 		Queue<ArbolOperaciones> nodos = new LinkedList<>();
 		
 		nodos.add(arbol);

@@ -11,6 +11,7 @@ import fitness.Fitness;
 import genotipo.GenotipoArbol;
 import utils.ArbolOperaciones;
 import utils.Operacion;
+import utils.OperacionesSeleccionadas;
 
 public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fitness>
 		implements Mutacion<GenotipoArbol, FenotipoArbol, FitnessUPB> {
@@ -36,9 +37,11 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 	private void mutacion(ArbolOperaciones arbol, int profundidadMaxima) {
 		if (arbol.getNivel() < profundidadMaxima) {
 			Random r = new Random();
-			Operacion[] operaciones = Operacion.values();
-			arbol.setRaiz(operaciones[r.nextInt(operaciones.length)]);
-
+			
+			ArrayList<Operacion> operaciones = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
+		//	Operacion[] operaciones = Operacion.values();
+		//	arbol.setRaiz(operaciones[r.nextInt(operaciones.length)]);
+			arbol.setRaiz(operaciones.get(r.nextInt(operaciones.size())));
 			Queue<ArbolOperaciones> nodos = new LinkedList<>();
 
 			nodos.add(arbol);

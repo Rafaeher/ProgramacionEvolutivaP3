@@ -9,11 +9,12 @@ import fitness.FitnessReal;
 import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
+import utils.OperacionesSeleccionadas;
 
 public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> {
 
 	private Configuracion configuracion;
-	
+
 	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion,
 			Configuracion configuracion) {
 
@@ -24,7 +25,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	@Override
 	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
-		
+
 		for (int i = 0; i < poblacion.size(); i++) {
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
 			double fitness = evalua(genotipo.getArbol());
@@ -32,15 +33,23 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 		}
 
 		FactoriaBloating factoria = new FactoriaBloating();
-		factoria.getBloating(this.configuracion.getBloating_seleccionado()).setFitnessConBloating(poblacion, configuracion);
+		factoria.getBloating(this.configuracion.getBloating_seleccionado()).setFitnessConBloating(poblacion,
+				configuracion);
 	}
 
 	private double evalua(ArbolOperaciones arbol) {
+		System.out.println("TODAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas().toString());
+		System.out.println("BINARIAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesBinariosSeleccionados().toString());
+		System.out.println("unarias " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesUnariasSeleccionadas().toString());
+		System.out.println("0 " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesCeroariosSeleccionados().toString());
+
 		double fitness = 0.0;
 		// Venus
+
 		if (arbol.operar(0.72) >= 0.61 && arbol.operar(0.72) < 0.62) {
 			fitness += 1.0;
 		}
+
 		// Tierra
 		if (arbol.operar(1.00) >= 0.61 && arbol.operar(1.00) < 1.01) {
 			fitness += 1.0;
@@ -68,21 +77,18 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 	public Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor(
 			ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 
+		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
+		for (int i = 0; i < poblacion.size(); i++) {
+			if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
+				mejor = poblacion.get(i);
+		}
+		return mejor.cloneIndividuo();
 
-			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
-			for (int i = 0; i < poblacion.size(); i++) {
-				if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
-					mejor = poblacion.get(i);
-			}
-			return mejor.cloneIndividuo();
-		
 	}
 
 	@Override
 	public Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor(
 			ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
-
-
 
 		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
@@ -90,7 +96,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 				peor = poblacion.get(i);
 		}
 		return peor.cloneIndividuo();
-		
+
 	}
 
 	@Override

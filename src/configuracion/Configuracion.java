@@ -1,5 +1,9 @@
 package configuracion;
 
+import java.util.ArrayList;
+
+import utils.Operacion;
+
 public class Configuracion {
 	//true -> maximizar
 	//false -> minimizar
@@ -17,11 +21,13 @@ public class Configuracion {
 	private String mensaje;
 	private int profundidadMaxima;
 	private Bloating_enum bloating_seleccionado;
+	private ArrayList<Operacion> operacionesSeleccionadas;
 
 
 	public Configuracion(boolean maximizar, int num_generaciones, double prob_mutacion,
 			Reproduccion_enum r, Mutacion_enum m, Seleccion_enum s, Genotipo_enum g, double probcruce,
-			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima, Bloating_enum bloating_seleccionado)
+			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima, Bloating_enum bloating_seleccionado,
+			ArrayList<Operacion> operacionesSeleccionadas)
 	{
 		this.profundidadMaxima = profundidadMaxima;
 		this.maximizar = maximizar;
@@ -35,6 +41,7 @@ public class Configuracion {
 		this.elite = el;
 		this.mensaje = mensajeE;
 		this.bloating_seleccionado = bloating_seleccionado;
+		this.operacionesSeleccionadas = operacionesSeleccionadas;
 	}
 
 	public boolean isMaximizar() {
@@ -125,6 +132,14 @@ public class Configuracion {
 
 	public void setBloating_seleccionado(Bloating_enum bloating_seleccionado) {
 		this.bloating_seleccionado = bloating_seleccionado;
+	}
+
+	public ArrayList<Operacion> getOperacionesSeleccionadas() {
+		return operacionesSeleccionadas;
+	}
+
+	public void setOperacionesSeleccionadas(ArrayList<Operacion> operacionesSeleccionadas) {
+		this.operacionesSeleccionadas = operacionesSeleccionadas;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package mutacion;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import fenotipo.Fenotipo;
@@ -8,6 +9,7 @@ import fitness.Fitness;
 import genotipo.GenotipoArbol;
 import utils.ArbolOperaciones;
 import utils.Operacion;
+import utils.OperacionesSeleccionadas;
 
 public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB extends Fitness>
 		implements Mutacion<GenotipoArbol, FenotipoArbol, FitnessUPB> {
@@ -72,13 +74,15 @@ public class MutacionFuncionalSimple<FenotipoUPB extends Fenotipo, FitnessUPB ex
 
 	private Operacion mutacion(int tipo){
 		Random r = new Random();
-		Operacion[] binarios = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV};
-		Operacion[] unarios = {Operacion.LOG,Operacion.SQRT,Operacion.OPUESTO};
+		
+		ArrayList<Operacion> binarios = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesBinariosSeleccionados();
+		ArrayList<Operacion> unarios = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesUnariasSeleccionadas();
+
 		if(tipo == 2){
-			return binarios[r.nextInt(binarios.length)];
+			return binarios.get(r.nextInt(binarios.size()));
 		}
 		else if(tipo == 1){
-			return unarios[r.nextInt(unarios.length)];
+			return unarios.get(r.nextInt(unarios.size()));
 		}
 		else return null;
 	}
