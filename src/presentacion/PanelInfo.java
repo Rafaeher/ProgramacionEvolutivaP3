@@ -587,6 +587,7 @@ public class PanelInfo extends javax.swing.JPanel {
 		if(jCheckBoxResta.isSelected()) array.add(Operacion.RESTA);
 		if(jCheckBoxSuma.isSelected()) array.add(Operacion.SUMA);
 		array.add(Operacion.A);
+		array.add(Operacion.B);
 		return array;
 	}
 
