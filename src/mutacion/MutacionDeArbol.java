@@ -22,7 +22,8 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 		ArrayList<ArbolOperaciones> array = new ArrayList<ArbolOperaciones>();
 		inorden(genotipo.getArbol(), array);
 		ArbolOperaciones arbolMutar = array.get(r.nextInt(array.size()));
-		mutacion(arbolMutar, genotipo.getProfundidadMaxima());
+		//Pone un arbol de tamaño máximo el tamaño del arbol permitido
+		mutacion(arbolMutar, genotipo.getArbol().getProfundidad() + r.nextInt(genotipo.getProfundidadMaxima()));
 		System.out.println("");
 	}
 
