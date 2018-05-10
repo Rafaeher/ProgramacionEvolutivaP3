@@ -7,9 +7,9 @@ public abstract class OperacionesSeleccionadas {
 	private static OperacionesSeleccionadas instance;
 
 	public static void setOperacionesSeleccionadas(ArrayList<Operacion> operacionesSeleccionadas) {
-		if (instance == null) {
+		//if (instance == null) {
 			instance = new OperacionesSeleccionadasImp(operacionesSeleccionadas);
-		}
+		//}
 	}
 
 	public static OperacionesSeleccionadas getOperacionesSeleccionadas() {

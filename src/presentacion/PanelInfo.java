@@ -431,8 +431,7 @@ public class PanelInfo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                 
 
-    private void jCheckBoxSumaActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+    private void jCheckBoxSumaActionPerformed(java.awt.event.ActionEvent evt) {
     }                                             
 
     private void jCheckBoxRestaActionPerformed(java.awt.event.ActionEvent evt) {                                               
@@ -480,13 +479,14 @@ public class PanelInfo extends javax.swing.JPanel {
 			Genotipo_enum g = Genotipo_enum.ALFABETO;
 			Mutacion_enum m = getMutacion(mutacion);
 			Bloating_enum b = getBloating(bloating);
-
+			this.repaint();
 			Configuracion c = new Configuracion(true, num_generaciones, prob_mutacion, r, m, s, g, cruceporcentaje,
 					tamano_poblacion, elite, "", Integer.parseInt(jTextFieldProfundidad.getText()),b,
 					getOperacionesSeleccionadas());
 			OperacionesSeleccionadas.setOperacionesSeleccionadas(getOperacionesSeleccionadas());
 			Controlador controlador = new Controlador();
 			controlador.execute(c);
+			
 		}
 	}
 
@@ -589,4 +589,5 @@ public class PanelInfo extends javax.swing.JPanel {
 		array.add(Operacion.A);
 		return array;
 	}
+
 }
