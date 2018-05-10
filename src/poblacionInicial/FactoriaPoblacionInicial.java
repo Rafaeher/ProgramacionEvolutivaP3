@@ -29,8 +29,8 @@ public class FactoriaPoblacionInicial
 			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
 			
 			ArbolOperaciones arbol = inicializacionAleatoria(configuracion.getProfundidadMaxima());
-			GenotipoArbol genotipo = new GenotipoArbol(arbol);
-			genotipo.setProfundidadMaxima(configuracion.getProfundidadMaxima());
+			GenotipoArbol genotipo = new GenotipoArbol(arbol,configuracion.getProfundidadMaxima());
+		//	genotipo.setProfundidadMaxima(configuracion.getProfundidadMaxima());
 		//	genotipo.setArbol(arbol);
 			FenotipoArbol fenotipo = new FenotipoArbol();
 			//Falta decodificar el arbol

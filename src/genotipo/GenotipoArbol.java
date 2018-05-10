@@ -7,9 +7,10 @@ public class GenotipoArbol implements Genotipo {
 	private ArbolOperaciones arbol;
 	private int profundidadMaxima;
 
-	public GenotipoArbol(ArbolOperaciones arbol)
+	public GenotipoArbol(ArbolOperaciones arbol, int profunidadMaxima)
 	{
 		this.arbol = arbol;
+		this.profundidadMaxima = profunidadMaxima;
 	}
 	
 	public ArbolOperaciones getArbol()
@@ -38,7 +39,7 @@ public class GenotipoArbol implements Genotipo {
 	@Override
 	public Genotipo cloneGenotipo()
 	{
-		GenotipoArbol clon = new GenotipoArbol((ArbolOperaciones) arbol.clone());
+		GenotipoArbol clon = new GenotipoArbol((ArbolOperaciones) arbol.clone(), profundidadMaxima);
 		clon.profundidadMaxima = profundidadMaxima;
 		
 		return clon;

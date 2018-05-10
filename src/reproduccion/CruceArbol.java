@@ -68,7 +68,8 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 			arbol2 = nodo1;
 		}
 		
-		GenotipoArbol genotipo1 = new GenotipoArbol(arbol1), genotipo2 = new GenotipoArbol(arbol2);
+		GenotipoArbol genotipo1 = new GenotipoArbol(arbol1,individuo1.getGenotipo().getProfundidadMaxima()), 
+				genotipo2 = new GenotipoArbol(arbol2,individuo2.getGenotipo().getProfundidadMaxima());
 		Individuo<GenotipoArbol, FenotipoCA, FitnessCA> nuevoIndividuo1 = individuo1.cloneIndividuo(),
 				nuevoIndividuo2 = individuo2.cloneIndividuo();
 		
@@ -200,9 +201,9 @@ implements Reproduccion<GenotipoArbol, FenotipoCA, FitnessCA> {
 		mul4 = new ArbolOperaciones(t8, Operacion.MUL, mul3),
 		sqrt2 = new ArbolOperaciones(Operacion.SQRT, mul4);
 		
-		GenotipoArbol genotipo1 = new GenotipoArbol(sqrt), genotipo2 = new GenotipoArbol(sqrt2);
-		ind1.setGenotipo(genotipo1);
-		ind2.setGenotipo(genotipo2);
+		//GenotipoArbol genotipo1 = new GenotipoArbol(sqrt), genotipo2 = new GenotipoArbol(sqrt2);
+		//ind1.setGenotipo(genotipo1);
+		//ind2.setGenotipo(genotipo2);
 		
 		ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacionFinal = new ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>();
 		Random rand = new Random();
