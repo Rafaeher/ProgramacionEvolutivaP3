@@ -1,9 +1,11 @@
 package funcion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import bloating.FactoriaBloating;
 import configuracion.Configuracion;
+import dao.DAOPeriodos;
 import fenotipo.FenotipoArbol;
 import fitness.FitnessReal;
 import genotipo.GenotipoArbol;
@@ -11,22 +13,25 @@ import individuo.Individuo;
 import utils.ArbolOperaciones;
 import utils.OperacionesSeleccionadas;
 
-public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> {
+public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal>
+{
 
-	private Configuracion configuracion;
-
-	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion,
-			Configuracion configuracion) {
-
+	private static HashMap<Double, Double> periodos;
+	
+	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion, Configuracion configuracion)
+	{
 		super(poblacion, configuracion);
-		this.configuracion = configuracion;
-
+		
+		if (periodos == null)
+			periodos = DAOPeriodos.leerPeriodos();
 	}
 
 	@Override
-	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
+	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion)
+	{
 
-		for (int i = 0; i < poblacion.size(); i++) {
+		for (int i = 0; i < poblacion.size(); i++)
+		{
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
 			double fitness = evalua(genotipo.getArbol());
 			poblacion.get(i).setFitness(new FitnessReal(fitness));
@@ -37,40 +42,39 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 				configuracion);
 	}
 
-	private double evalua(ArbolOperaciones arbol) {
-		System.out.println("TODAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas().toString());
-		System.out.println("BINARIAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesBinariosSeleccionados().toString());
-		System.out.println("unarias " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesUnariasSeleccionadas().toString());
-		System.out.println("0 " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesCeroariosSeleccionados().toString());
+	private double evalua(ArbolOperaciones arbol)
+	{
+		Double fitness = 0.0;
 
-		double fitness = 0.0;
-		// Venus
-
-		if (arbol.operar(0.72) >= 0.61 && arbol.operar(0.72) < 0.62) {
-			fitness += 1.0;
+		Double media = calcularMediaError(arbol);
+		
+		for(Double periodo : periodos.keySet())
+		{
+			fitness += Math.abs(periodo - arbol.operar(periodos.get(periodo)));
 		}
-
-		// Tierra
-		if (arbol.operar(1.00) >= 0.61 && arbol.operar(1.00) < 1.01) {
-			fitness += 1.0;
-		}
-		// Marte
-		if (arbol.operar(1.52) >= 1.84 && arbol.operar(1.52) < 1.88) {
-			fitness += 1.0;
-		}
-		// Jupiter
-		if (arbol.operar(5.20) >= 11.85 && arbol.operar(5.20) < 12.0) {
-			fitness += 1.0;
-		}
-		// Saturno
-		if (arbol.operar(9.53) >= 29.4 && arbol.operar(9.53) < 29.5) {
-			fitness += 1.0;
-		}
-		// Urano
-		if (arbol.operar(19.1) >= 83.4 && arbol.operar(19.1) < 83.6) {
-			fitness += 1.0;
-		}
+		
+		fitness /= periodos.keySet().size();
+		
+		if (arbol.getProfundidad() > configuracion.getProfundidadMaxima())
+			fitness += arbol.getNumNodos() * arbol.getProfundidad();
+		
 		return fitness;
+	}
+
+	
+	
+	private Double calcularMediaError(ArbolOperaciones arbol)
+	{
+		Double media = 0.0;
+		
+		for(Double periodo : periodos.keySet())
+		{
+			media += Math.abs(periodo - arbol.operar(periodos.get(periodo)));
+		}
+		
+		media /= periodos.keySet().size();
+		
+		return media;
 	}
 
 	@Override
@@ -79,7 +83,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
-			if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
+			if (poblacion.get(i).getFitness().getValor() < mejor.getFitness().getValor())
 				mejor = poblacion.get(i);
 		}
 		return mejor.cloneIndividuo();
@@ -92,7 +96,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
-			if (poblacion.get(i).getFitness().getValor() < peor.getFitness().getValor())
+			if (poblacion.get(i).getFitness().getValor() > peor.getFitness().getValor())
 				peor = poblacion.get(i);
 		}
 		return peor.cloneIndividuo();
@@ -101,7 +105,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	@Override
 	public boolean getMaximizar() {
-		return true;
+		return false;
 	}
 
 }

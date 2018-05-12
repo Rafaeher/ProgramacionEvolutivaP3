@@ -17,7 +17,7 @@ import seleccion.Seleccion;
 public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Fenotipo, FitnessF extends Fitness>
 {
 	private ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> poblacion;
-	private Configuracion configuracion;
+	protected Configuracion configuracion;
 	protected Individuo<GenotipoF, FenotipoF, FitnessF> mejorIndividuo;
 
 	private double[] x_generaciones;
