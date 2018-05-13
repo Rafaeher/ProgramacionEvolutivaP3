@@ -23,7 +23,7 @@ public class FactoriaFunciones<GenotipoALF extends Genotipo, FenotipoALF extends
     	default:
     		ArrayList<?> aux = poblacion;
     		ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> aux2 = (ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>) aux;
-    		funcion = new FuncionArbol(aux2, config); break;
+    		funcion = new FuncionArbolAntigua(aux2, config); break;
 		}
 		
 		return (Funcion<GenotipoALF, FenotipoALF, FitnessALF>) funcion;

@@ -50,13 +50,11 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 		
 		for(Double periodo : periodos.keySet())
 		{
-			fitness += Math.abs(periodo - arbol.operar(periodos.get(periodo)));
+			Double termino = Math.abs(periodo - arbol.operar(periodos.get(periodo))) - media;
+			fitness += termino * termino;
 		}
 		
 		fitness /= periodos.keySet().size();
-		
-		if (arbol.getProfundidad() > configuracion.getProfundidadMaxima())
-			fitness += arbol.getNumNodos() * arbol.getProfundidad();
 		
 		return fitness;
 	}
