@@ -38,10 +38,10 @@ public class FuncionArbolAntigua extends Funcion<GenotipoArbol, FenotipoArbol, F
 	}
 
 	private double evalua(ArbolOperaciones arbol) {
-		System.out.println("TODAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas().toString());
-		System.out.println("BINARIAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesBinariosSeleccionados().toString());
-		System.out.println("unarias " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesUnariasSeleccionadas().toString());
-		System.out.println("0 " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesCeroariosSeleccionados().toString());
+	//	System.out.println("TODAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas().toString());
+	//	System.out.println("BINARIAS " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesBinariosSeleccionados().toString());
+	//	System.out.println("unarias " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesUnariasSeleccionadas().toString());
+	//	System.out.println("0 " + OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesCeroariosSeleccionados().toString());
 
 		double fitness = 0.0;
 		// Venus

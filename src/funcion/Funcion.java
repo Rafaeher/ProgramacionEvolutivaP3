@@ -5,10 +5,14 @@ import java.util.Random;
 
 import configuracion.Configuracion;
 import fenotipo.Fenotipo;
+import fenotipo.FenotipoArbol;
 import fitness.Fitness;
+import fitness.FitnessReal;
 import genotipo.Genotipo;
+import genotipo.GenotipoArbol;
 import individuo.ComparadorIndividuo;
 import individuo.Individuo;
+import poblacionInicial.FactoriaPoblacionInicial;
 import reproduccion.FactoriaReproduccion;
 import reproduccion.Reproduccion;
 import seleccion.FactoriaSeleccion;
@@ -56,7 +60,8 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 		peorAbsoluto = peor(poblacion).getFitness().getValorReal();
 		
 		while (it < configuracion.getNum_generaciones() - 1)
-        {		
+        {	
+			mejora(it);
 			it++;
 			
 			elite = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>)calculaLosMejoresDeLaPoblacion(poblacion, configuracion.getElite());
@@ -259,5 +264,30 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 	{
 		poblacion.sort(new ComparadorIndividuo(getMaximizar()));
 		return poblacion.get(0);
+	}
+	
+	private void mejora(int it){
+		try{
+			if(y_mejor_total[it-30] == y_mejor_total[it]){
+				ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion,(int)(poblacion.size()*0.1));
+				FactoriaPoblacionInicial factoriaPrimeraPoblacion = new FactoriaPoblacionInicial();
+				Configuracion configuracionAux = configuracion.clone();
+				configuracionAux.setTamano_poblacion((int)(poblacion.size()*0.9));
+				ArrayList<?> poblacion = factoriaPrimeraPoblacion.getPrimeraPoblacion(configuracionAux);
+				ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
+				
+				for(int i = 0; i < (int)(poblacion.size()*0.1); i++ ){
+					this.poblacion.set(i, mejores.get(i));
+				}
+				for(int i = (int)(poblacion.size()*0.1), j = 0; i < poblacion.size(); i++, j++){
+					this.poblacion.set(i, pob.get(j));
+				}
+				algEvalua(this.poblacion);
+				System.out.println("REINICIO");
+			}
+		}
+		catch(Exception e){
+			
+		}
 	}
 }

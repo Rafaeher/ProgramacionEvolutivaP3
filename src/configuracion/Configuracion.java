@@ -141,5 +141,14 @@ public class Configuracion {
 	public void setOperacionesSeleccionadas(ArrayList<Operacion> operacionesSeleccionadas) {
 		this.operacionesSeleccionadas = operacionesSeleccionadas;
 	}
+	public Configuracion clone(){
+		Configuracion clone = new Configuracion(maximizar,num_generaciones, prob_mutacion,
+				reproduccion_seleccionada,  mutacion_seleccionada,  seleccion_seleccionada,
+				null,  cruceporcentaje,
+				tamano_poblacion,  elite,  mensaje,  profundidadMaxima,  bloating_seleccionado,
+				operacionesSeleccionadas);
+		
+		return clone;
+	}
 	
 }
