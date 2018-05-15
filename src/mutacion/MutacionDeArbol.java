@@ -50,7 +50,6 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 			while (!nodos.isEmpty()) {
 				ArbolOperaciones arbolAux = nodos.remove();
 				if (arbolAux != null) {
-					System.out.println("NIVEL " + arbolAux.getNivel());
 					if (arbolAux.getNivel() >= profundidadMaxima - 1) {
 						try {
 							arbolAux.forzarTamano();

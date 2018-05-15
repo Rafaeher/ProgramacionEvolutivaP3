@@ -24,7 +24,8 @@ implements Bloating<GenotipoArbol, FenotipoPBF, FitnessReal>  {
 		
 		for(Individuo<GenotipoArbol, FenotipoPBF, FitnessReal> individuo : individuos)
 		{
-			individuo.setFitness(new FitnessReal(individuo.getFitness().getValor() + coeficiente * individuo.getGenotipo().getArbol().getProfundidad()));
+			individuo.setFitness(new FitnessReal(individuo.getFitness().getValor() - coeficiente * individuo.getGenotipo().getArbol().getProfundidad()));
+			System.out.println("PROFUNDIDAD " + individuo.getGenotipo().getArbol().getProfundidad());
 		}
 	}
 
