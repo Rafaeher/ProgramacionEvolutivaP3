@@ -22,9 +22,9 @@ public class FactoriaPoblacionInicial
 		Random r = new Random();
 		ArrayList<?> result = null;
 		
-		result = new ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>(100);
+		result = new ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>(configuracion.getTamano_poblacion());
 		
-		for(int i = 0; i < 100; i++)
+		for(int i = 0; i < configuracion.getTamano_poblacion(); i++)
 		{
 			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
 			

@@ -1,5 +1,6 @@
 /bloating/
 /configuracion/
+/dao/
 /decodificador/
 /fenotipo/
 /fitness/
@@ -13,4 +14,3 @@
 /reproduccion/
 /seleccion/
 /utils/
-/dao/

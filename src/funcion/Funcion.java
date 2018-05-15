@@ -267,27 +267,31 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 	}
 	
 	private void mejora(int it){
-		try{
-			if(y_mejor_total[it-30] == y_mejor_total[it]){
-				ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion,(int)(poblacion.size()*0.1));
-				FactoriaPoblacionInicial factoriaPrimeraPoblacion = new FactoriaPoblacionInicial();
-				Configuracion configuracionAux = configuracion.clone();
-				configuracionAux.setTamano_poblacion((int)(poblacion.size()*0.9));
-				ArrayList<?> poblacion = factoriaPrimeraPoblacion.getPrimeraPoblacion(configuracionAux);
-				ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
+		if(it >= 32){
+			System.out.println("");
+			try{
+				if(y_mejor_total[it-30] == y_mejor_total[it]){
+					ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion,(int)(poblacion.size()*0.1));
+					FactoriaPoblacionInicial factoriaPrimeraPoblacion = new FactoriaPoblacionInicial();
+					Configuracion configuracionAux = configuracion.clone();
+					configuracionAux.setTamano_poblacion((int)(poblacion.size()*0.9));
+					ArrayList<?> poblacion = factoriaPrimeraPoblacion.getPrimeraPoblacion(configuracionAux);
+					ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
+					
+					for(int i = 0; i < (int)(poblacion.size()*0.1); i++ ){
+						this.poblacion.set(i, mejores.get(i));
+					}
+					for(int i = (int)(poblacion.size()*0.1), j = 0; i < poblacion.size(); i++, j++){
+						this.poblacion.set(i, pob.get(j));
+					}
+					algEvalua(this.poblacion);
+					System.out.println("REINICIO");
+				}
+			}
+			catch(Exception e){
 				
-				for(int i = 0; i < (int)(poblacion.size()*0.1); i++ ){
-					this.poblacion.set(i, mejores.get(i));
-				}
-				for(int i = (int)(poblacion.size()*0.1), j = 0; i < poblacion.size(); i++, j++){
-					this.poblacion.set(i, pob.get(j));
-				}
-				algEvalua(this.poblacion);
-				System.out.println("REINICIO");
 			}
 		}
-		catch(Exception e){
-			
-		}
+		
 	}
 }
