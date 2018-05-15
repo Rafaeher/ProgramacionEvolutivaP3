@@ -61,7 +61,7 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 		
 		while (it < configuracion.getNum_generaciones() - 1)
         {	
-			mejora(it);
+			//mejora(it);
 			it++;
 			
 			elite = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>)calculaLosMejoresDeLaPoblacion(poblacion, configuracion.getElite());

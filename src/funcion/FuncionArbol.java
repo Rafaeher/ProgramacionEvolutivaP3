@@ -103,6 +103,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	@Override
 	public boolean getMaximizar() {
+		System.out.println("entro");
 		return false;
 	}
 
