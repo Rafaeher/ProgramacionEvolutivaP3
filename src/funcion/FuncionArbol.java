@@ -5,33 +5,33 @@ import java.util.HashMap;
 
 import bloating.FactoriaBloating;
 import configuracion.Configuracion;
-import dao.DAOPeriodos;
+import dao.DAOEjemplos;
 import fenotipo.FenotipoArbol;
 import fitness.FitnessReal;
 import genotipo.GenotipoArbol;
 import individuo.Individuo;
 import utils.ArbolOperaciones;
-import utils.OperacionesSeleccionadas;
 
-public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal>
-{
+public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessReal> {
 
-	private static HashMap<Double, Double> periodos;
-	
-	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion, Configuracion configuracion)
-	{
+	private Configuracion configuracion;
+	private static HashMap<Double, Double> ejemplos;
+
+	public FuncionArbol(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion,
+			Configuracion configuracion) {
+
 		super(poblacion, configuracion);
+		this.configuracion = configuracion;
 		
-		if (periodos == null)
-			periodos = DAOPeriodos.leerPeriodos();
+		if (ejemplos == null)
+			ejemplos = DAOEjemplos.leerEjemplos();
+
 	}
 
 	@Override
-	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion)
-	{
+	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 
-		for (int i = 0; i < poblacion.size(); i++)
-		{
+		for (int i = 0; i < poblacion.size(); i++) {
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
 			double fitness = evalua(genotipo.getArbol());
 			poblacion.get(i).setFitness(new FitnessReal(fitness));
@@ -44,35 +44,17 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	private double evalua(ArbolOperaciones arbol)
 	{
-		Double fitness = 0.0;
-
-		Double media = calcularMediaError(arbol);
+		double fitness = 0.0;
 		
-		for(Double periodo : periodos.keySet())
+		for(Double entrada : ejemplos.keySet())
 		{
-			Double termino = Math.abs(periodo - arbol.operar(periodos.get(periodo))) - media;
-			fitness += termino * termino;
+			if (Math.abs(arbol.operar(entrada) - ejemplos.get(entrada)) < 0.1) // Si el error es inferior a una décima
+			{
+				fitness += 1.0;
+			}
 		}
-		
-		fitness /= periodos.keySet().size();
 		
 		return fitness;
-	}
-
-	
-	
-	private Double calcularMediaError(ArbolOperaciones arbol)
-	{
-		Double media = 0.0;
-		
-		for(Double periodo : periodos.keySet())
-		{
-			media += Math.abs(periodo - arbol.operar(periodos.get(periodo)));
-		}
-		
-		media /= periodos.keySet().size();
-		
-		return media;
 	}
 
 	@Override
@@ -81,7 +63,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> mejor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
-			if (poblacion.get(i).getFitness().getValor() < mejor.getFitness().getValor())
+			if (poblacion.get(i).getFitness().getValor() > mejor.getFitness().getValor())
 				mejor = poblacion.get(i);
 		}
 		return mejor.cloneIndividuo();
@@ -94,7 +76,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 		Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> peor = poblacion.get(0);
 		for (int i = 0; i < poblacion.size(); i++) {
-			if (poblacion.get(i).getFitness().getValor() > peor.getFitness().getValor())
+			if (poblacion.get(i).getFitness().getValor() < peor.getFitness().getValor())
 				peor = poblacion.get(i);
 		}
 		return peor.cloneIndividuo();
@@ -103,8 +85,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	@Override
 	public boolean getMaximizar() {
-		System.out.println("entro");
-		return false;
+		return true;
 	}
 
 }

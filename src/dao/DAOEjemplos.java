@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
-public class DAOPeriodos
+public class DAOEjemplos
 {
-	private static String RUTA = "periodos.txt";
+	private static String RUTA = "ejemplos.txt";
 	
-	public static HashMap<Double, Double> leerPeriodos()
+	public static HashMap<Double, Double> leerEjemplos()
 	{
 	      File file = null;
 	      FileReader fileReader = null;
