@@ -28,7 +28,12 @@ public class FactoriaPoblacionInicial
 		{
 			Individuo<GenotipoArbol, FenotipoArbol, FitnessReal> individuo = new Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>();
 			
-			ArbolOperaciones arbol = inicializacionAleatoria(configuracion.getProfundidadMaxima());
+			//ArbolOperaciones arbol = inicializacionAleatoria(configuracion.getProfundidadMaxima());
+			FactoriaMetodoInicializacion factoria = new FactoriaMetodoInicializacion();
+			InicializacionArbol iniArbol = factoria.getIniArbol(configuracion.getIniArbol());
+			ArbolOperaciones arbol = iniArbol.inicializacionAleatoria(configuracion.getProfundidadMaxima());
+			
+			
 			GenotipoArbol genotipo = new GenotipoArbol(arbol,configuracion.getProfundidadMaxima());
 		//	genotipo.setProfundidadMaxima(configuracion.getProfundidadMaxima());
 		//	genotipo.setArbol(arbol);
@@ -37,13 +42,14 @@ public class FactoriaPoblacionInicial
 			individuo.setGenotipo(genotipo);
 			individuo.setFenotipo(fenotipo);
 			
+			System.out.println();
 			((ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>>) result).add(individuo);
 			
 			}
 		
 		return result;
 	}
-	
+	/*
 	private ArbolOperaciones inicializacionAleatoria(int max)
 	{
 		Random r = new Random();
@@ -81,6 +87,7 @@ public class FactoriaPoblacionInicial
 		}
 		return arbol;
 	}
+	*/
 	public static void main(String args[])
 	{
 		

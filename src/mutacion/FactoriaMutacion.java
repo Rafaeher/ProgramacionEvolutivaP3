@@ -17,7 +17,7 @@ FactoriaMutacion<GenotipoALF extends Genotipo, FenotipoALF extends Fenotipo, Fit
         case MUTACION_DE_ARBOL: return (Mutacion<GenotipoALF, FenotipoALF, FitnessALF>) new MutacionDeArbol<FenotipoALF, FitnessALF>();
         case MUTACION_FUNCIONAL_SIMPLE: return (Mutacion<GenotipoALF, FenotipoALF, FitnessALF>) new MutacionFuncionalSimple<FenotipoALF,FitnessALF>();
         case MUTACION_TERMINAL_SIMPLE: return (Mutacion<GenotipoALF, FenotipoALF, FitnessALF>) new MutacionTerminalSimple<FenotipoALF, FitnessALF>();
-      
+        case PERMUTACION:return (Mutacion<GenotipoALF, FenotipoALF, FitnessALF>) new Permutacion<FenotipoALF, FitnessALF>();
             default: return null;
         }
     }

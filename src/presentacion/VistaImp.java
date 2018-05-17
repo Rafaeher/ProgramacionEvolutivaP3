@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.ProgressMonitor;
@@ -17,13 +18,14 @@ public class VistaImp extends Vista {
 	public VistaImp(){
 		frame = new JFrame();
 		frame.setTitle("Programación Evolutiva");
-		frame.setSize(1200, 900);
+		frame.setSize(1200, 710);
+		//frame.setSize(frame.MAXIMIZED_VERT, frame.MAXIMIZED_HORIZ);
 		panelInfo = new PanelInfo();
 		frame.setLayout(new BorderLayout());
 		frame.add(panelInfo, BorderLayout.WEST);
 
 		grafica();
-		
+	
 		frame.setVisible(true);
 	}
 	private void grafica() {
