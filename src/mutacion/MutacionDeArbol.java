@@ -58,7 +58,7 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 						}
 					} else {
 						try {
-							arbolAux.generarHijosAleatorios();
+							arbolAux.generarHijosAleatorios(operaciones);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

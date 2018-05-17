@@ -17,6 +17,8 @@ public class Configuracion {
 	private Reproduccion_enum reproduccion_seleccionada;
 	private Mutacion_enum mutacion_seleccionada;
 	private Seleccion_enum seleccion_seleccionada;
+	private IniArbol_enum iniArbol;
+
 	private int elite;
 	private String mensaje;
 	private int profundidadMaxima;
@@ -27,7 +29,7 @@ public class Configuracion {
 	public Configuracion(boolean maximizar, int num_generaciones, double prob_mutacion,
 			Reproduccion_enum r, Mutacion_enum m, Seleccion_enum s, Genotipo_enum g, double probcruce,
 			int tamano_poblacion, int el, String mensajeE, int profundidadMaxima, Bloating_enum bloating_seleccionado,
-			ArrayList<Operacion> operacionesSeleccionadas)
+			ArrayList<Operacion> operacionesSeleccionadas,IniArbol_enum iniArbol)
 	{
 		this.profundidadMaxima = profundidadMaxima;
 		this.maximizar = maximizar;
@@ -42,6 +44,7 @@ public class Configuracion {
 		this.mensaje = mensajeE;
 		this.bloating_seleccionado = bloating_seleccionado;
 		this.operacionesSeleccionadas = operacionesSeleccionadas;
+		this.iniArbol = iniArbol;
 	}
 
 	public boolean isMaximizar() {
@@ -141,12 +144,20 @@ public class Configuracion {
 	public void setOperacionesSeleccionadas(ArrayList<Operacion> operacionesSeleccionadas) {
 		this.operacionesSeleccionadas = operacionesSeleccionadas;
 	}
+	
+	public IniArbol_enum getIniArbol() {
+		return iniArbol;
+	}
+
+	public void setIniArbol(IniArbol_enum iniArbol) {
+		this.iniArbol = iniArbol;
+	}
 	public Configuracion clone(){
 		Configuracion clone = new Configuracion(maximizar,num_generaciones, prob_mutacion,
 				reproduccion_seleccionada,  mutacion_seleccionada,  seleccion_seleccionada,
 				null,  cruceporcentaje,
 				tamano_poblacion,  elite,  mensaje,  profundidadMaxima,  bloating_seleccionado,
-				operacionesSeleccionadas);
+				operacionesSeleccionadas,iniArbol);
 		
 		return clone;
 	}

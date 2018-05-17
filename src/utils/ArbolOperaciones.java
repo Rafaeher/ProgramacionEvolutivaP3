@@ -324,9 +324,9 @@ public class ArbolOperaciones
 				
 	}
 	
-	public void generarHijosAleatorios() throws Exception{
+	public void generarHijosAleatorios(ArrayList<Operacion> operandos) throws Exception{
 		Random r = new Random();
-		ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
+		//ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
 		/*Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
 				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};*/
 		//Primero generamos la raiz
