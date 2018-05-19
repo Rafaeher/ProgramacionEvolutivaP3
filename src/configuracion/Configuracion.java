@@ -149,10 +149,13 @@ public class Configuracion {
 		return iniArbol;
 	}
 
-	public void setIniArbol(IniArbol_enum iniArbol) {
+	public void setIniArbol(IniArbol_enum iniArbol)
+	{
 		this.iniArbol = iniArbol;
 	}
-	public Configuracion clone(){
+	
+	public Configuracion clone()
+	{
 		Configuracion clone = new Configuracion(maximizar,num_generaciones, prob_mutacion,
 				reproduccion_seleccionada,  mutacion_seleccionada,  seleccion_seleccionada,
 				null,  cruceporcentaje,

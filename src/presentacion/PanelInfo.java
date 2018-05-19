@@ -308,7 +308,7 @@ public class PanelInfo extends javax.swing.JPanel {
         jLabelBloating.setText("Bolating");
 
         jComboBoxBloating.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jComboBoxBloating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarpeian", "Penalizacion bien fundmentada" }));
+        jComboBoxBloating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarpeian", "Penalizacion bien fundamentada" }));
         jComboBoxBloating.setToolTipText("Elige un método de seleccion");
         jComboBoxBloating.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
