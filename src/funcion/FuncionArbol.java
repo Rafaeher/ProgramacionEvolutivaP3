@@ -31,8 +31,14 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 	@Override
 	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 
-		for (int i = 0; i < poblacion.size(); i++) {
+		for (int i = 0; i < poblacion.size(); i++)
+		{
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
+			
+			if (genotipo.getNumNodos() > Math.pow(2, configuracion.getProfundidadMaxima())
+					|| genotipo.getProfundidad() > configuracion.getProfundidadMaxima() * 5 / 4)
+				genotipo.recorta(configuracion.getProfundidadMaxima());
+			
 			double fitness = evalua(genotipo.getArbol());
 			poblacion.get(i).setFitness(new FitnessReal(fitness));
 		}

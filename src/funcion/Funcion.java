@@ -32,8 +32,6 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 	private double peorAbsoluto;
 	private Integer totalCruces;
 	private Integer totalMutaciones;
-	private double media;
-	
 
 	public Funcion(ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> poblacion, Configuracion configuracion)
 	{
@@ -44,9 +42,7 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 		this.y_mejor_total = new double[configuracion.getNum_generaciones()];
 		this.y_media = new double[configuracion.getNum_generaciones()];
 		this.totalCruces = 0;
-		this.totalMutaciones = 0;
-		this.media = 0;
-		
+		this.totalMutaciones = 0;	
 	}
 	
 	public void algoritmoGenetico()
@@ -87,13 +83,26 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			
 			obtenerEstadisticas(it);
 			
-			//System.out.println("Iteracion " + it);
-			
-		//	if(it == 100) {
-			//	System.out.println("");
-			//	System.out.println("");
-		//	}
+			if(!evoluciona(it))
+				reinicia();
 		}
+	}
+
+	private boolean evoluciona(int it)
+	{
+		int numGeneraciones = configuracion.getNum_generaciones() / 20;
+		if (it > numGeneraciones)
+		{
+			boolean evolucion = false;
+			for(int i = 0; i < numGeneraciones - 1 && !evolucion; i++)
+			{
+				evolucion = Math.abs(y_media[it - 1 - i] - y_media[it - 2 - i]) < 0.1;
+			}
+			
+			return evolucion;
+		}
+		
+		return false;
 	}
 
 	private void algSeleccion(ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> individuos_iniciales)
@@ -266,31 +275,30 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 		return poblacion.get(0);
 	}
 	
-	private void mejora(int it){
-		if(it >= 32){
-			System.out.println("");
-			try{
-				if(y_mejor_total[it-30] == y_mejor_total[it]){
-					ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion,(int)(poblacion.size()*0.1));
-					FactoriaPoblacionInicial factoriaPrimeraPoblacion = new FactoriaPoblacionInicial();
-					Configuracion configuracionAux = configuracion.clone();
-					configuracionAux.setTamano_poblacion((int)(poblacion.size()*0.9));
-					ArrayList<?> poblacion = factoriaPrimeraPoblacion.getPrimeraPoblacion(configuracionAux);
-					ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
+	private void reinicia()
+	{
+		System.out.println("REINICIO");
+		try
+		{
+			ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion, poblacion.size() / 10);
+			FactoriaPoblacionInicial factoriaPrimeraPoblacion = new FactoriaPoblacionInicial();
+			Configuracion configuracionAux = configuracion.clone();
+			configuracionAux.setTamano_poblacion(poblacion.size() * 9 / 10);
+			ArrayList<?> poblacion = factoriaPrimeraPoblacion.getPrimeraPoblacion(configuracionAux);
+			ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
 					
-					for(int i = 0; i < (int)(poblacion.size()*0.1); i++ ){
-						this.poblacion.set(i, mejores.get(i));
-					}
-					for(int i = (int)(poblacion.size()*0.1), j = 0; i < poblacion.size(); i++, j++){
-						this.poblacion.set(i, pob.get(j));
-					}
-					algEvalua(this.poblacion);
-					System.out.println("REINICIO");
-				}
+			this.poblacion = pob;
+					
+			for(int i = 0; i < mejores.size(); i++ )
+			{
+				this.poblacion.add(mejores.get(i));
 			}
-			catch(Exception e){
+					
+			algEvalua(this.poblacion);
+		}
+		catch(Exception e)
+		{
 				
-			}
 		}
 		
 	}

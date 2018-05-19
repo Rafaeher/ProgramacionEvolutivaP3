@@ -294,11 +294,6 @@ public class ArbolOperaciones
 		return profundidad;
 	}
 
-	public void setProfundidad(int profundidad)
-	{
-		this.profundidad = profundidad;
-	}
-
 	public static void main(String args[])
 	{
 		ArbolOperaciones
@@ -326,9 +321,7 @@ public class ArbolOperaciones
 	
 	public void generarHijosAleatorios(ArrayList<Operacion> operandos) throws Exception{
 		Random r = new Random();
-		//ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
-		/*Operacion[] operandos = {Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV,
-				Operacion.SUMA,Operacion.RESTA,Operacion.MUL,Operacion.DIV, Operacion.A};*/
+		
 		//Primero generamos la raiz
 		if(raiz.getNumOperandos() == 2){
 			//Hijo izquierdo
@@ -344,16 +337,24 @@ public class ArbolOperaciones
 	}
 	
 	
-	public void forzarTamano() throws Exception{
-		if(raiz.getNumOperandos() == 2){
-			//Hijo izquierdo
-			this.insertarIzq(new ArbolOperaciones(Operacion.A));
-			this.insertarDer(new ArbolOperaciones(Operacion.A));
+	public void forzarTamano()
+	{
+		try
+		{
+			if(raiz.getNumOperandos() == 2){
+				//Hijo izquierdo
+				this.insertarIzq(new ArbolOperaciones(Operacion.A));
+				this.insertarDer(new ArbolOperaciones(Operacion.A));
 			
+			}
+			else if(raiz.getNumOperandos() == 1){
+				this.insertarDer(new ArbolOperaciones(Operacion.A));
+			}
 		}
-		else if(raiz.getNumOperandos() == 1){
-			this.insertarDer(new ArbolOperaciones(Operacion.A));
-		}	
+		catch(Exception e)
+		{
+			// Esta excepción no puede ser alcanzada.
+		}
 	}
 	
 	public double operar(double valor)
@@ -449,59 +450,25 @@ public class ArbolOperaciones
 		}
 	}
 	
-	private void recorta(int maxProfundidad)
+	public void recorta(int maxProfundidad)
 	{
-		if (arbolPadre == null)
-		{
-			nivel = 1;
-		}
-		else
-		{
-			nivel = arbolPadre.nivel + 1;
-		}
-		
-		switch(raiz.getNumOperandos())
-		{
-		case 1: der.recorta(maxProfundidad); break;
-		case 2: izq.recorta(maxProfundidad); der.recorta(maxProfundidad); break;
-		default: break;
-		}
-		
-		if (nivel < maxProfundidad)
+		if (nivel >= maxProfundidad - 2)
 		{
 			switch(raiz.getNumOperandos())
 			{
-			case 0:
-				profundidad = 1;
-				num_0 = 1;
-				num_1 = 0;
-				num_2 = 0;
-				break;
-				
-			case 1:
-				profundidad = der.profundidad + 1;
-				num_0 = der.num_0;
-				num_1 = der.num_1 + 1;
-				num_2 = der.num_2;
-				break;
-				
-			case 2:
-				profundidad = Math.max(izq.profundidad, der.profundidad) + 1;
-				num_0 = izq.num_0 + der.num_0;
-				num_1 = izq.num_1 + der.num_1;
-				num_2 = izq.num_2 + der.num_2 + 1;
-				break;
+			case 0: break;
+			case 1: der.forzarTamano(); break;
+			case 2: izq.forzarTamano(); der.forzarTamano(); break;
 			}
 		}
 		else
 		{
-			raiz = Operacion.A;
-			izq = null;
-			der = null;
-			profundidad = 1;
-			num_0 = 1;
-			num_1 = 0;
-			num_2 = 0;
+			switch(raiz.getNumOperandos())
+			{
+			case 0: break;
+			case 1: der.recorta(maxProfundidad); break;
+			case 2: der.recorta(maxProfundidad); izq.recorta(maxProfundidad); break;
+			}
 		}
 	}
 	
