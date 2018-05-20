@@ -81,10 +81,12 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			
 			colocaLaelite(elite);
 			
-			obtenerEstadisticas(it);
 			
 			if(!evoluciona(it))
 				reinicia();
+			
+			obtenerEstadisticas(it);
+			
 		}
 	}
 
