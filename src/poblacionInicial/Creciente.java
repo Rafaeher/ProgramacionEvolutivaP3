@@ -13,7 +13,9 @@ public class Creciente extends InicializacionArbol{
 
 	@Override
 	public ArbolOperaciones inicializacionAleatoria(int max) {
+		
 		Random r = new Random();
+		
 		ArrayList<Operacion> operandos = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
 		
 		ArbolOperaciones arbol = new ArbolOperaciones(operandos.get(r.nextInt(operandos.size())));

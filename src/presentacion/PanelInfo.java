@@ -104,7 +104,8 @@ public class PanelInfo extends javax.swing.JPanel {
         jLabelSeleccion.setText("Selección");
 
         jComboBoxSeleccion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jComboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ruleta", "Estocastica", "Truncamiento" }));
+        jComboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ruleta", "Estocastica", "Truncamiento", "Torneo Deterministico",
+        		"Torneo Probabilistico"}));
         jComboBoxSeleccion.setToolTipText("Elige un método de seleccion");
         jComboBoxSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,9 +532,13 @@ public class PanelInfo extends javax.swing.JPanel {
     }                                                       
 
 	private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {
-		if (this.jTextFieldPoblacion.getText().isEmpty() || jTextFieldGeneraciones.getText().isEmpty()
+		if(Integer.parseInt(jTextFieldProfundidad.getText()) <= 1){
+			JOptionPane.showMessageDialog(null, "Error: La profundidad debe ser mayor que 1", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (this.jTextFieldPoblacion.getText().isEmpty() || jTextFieldGeneraciones.getText().isEmpty()
 				|| jTextFieldCruceporcentaje.getText().isEmpty() || this.jTextFieldProbMutacion.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Error: Faltan datos", "error", JOptionPane.ERROR_MESSAGE);
+			
 		} else {
 			// String tipo = (String) this.jComboBoxTipo.getSelectedItem();
 			// this.tipo = tipo;
