@@ -36,8 +36,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 		{
 			GenotipoArbol genotipo = (GenotipoArbol) poblacion.get(i).getGenotipo();
 			
-			if (genotipo.getNumNodos() > Math.pow(2, configuracion.getProfundidadMaxima())
-					|| genotipo.getProfundidad() > configuracion.getProfundidadMaxima() * 5 / 4)
+			if (genotipo.getNumNodos() > Math.pow(2, configuracion.getProfundidadMaxima()))
 				genotipo.recorta(configuracion.getProfundidadMaxima());
 			
 			double fitness = evalua(genotipo.getArbol());
