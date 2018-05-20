@@ -79,11 +79,10 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			
 			algEvalua(poblacion);
 			
-			colocaLaelite(elite);
-			
-			
 			if(!evoluciona(it))
 				reinicia();
+			
+			colocaLaelite(elite);
 			
 			obtenerEstadisticas(it);
 			
