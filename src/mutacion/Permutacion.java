@@ -1,6 +1,5 @@
 package mutacion;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import fenotipo.Fenotipo;
@@ -8,8 +7,6 @@ import fenotipo.FenotipoArbol;
 import fitness.Fitness;
 import genotipo.GenotipoArbol;
 import utils.ArbolOperaciones;
-import utils.Operacion;
-import utils.OperacionesSeleccionadas;
 
 public class Permutacion<FenotipoUPB extends Fenotipo, FitnessUPB extends Fitness>
 		implements Mutacion<GenotipoArbol, FenotipoArbol, FitnessUPB> {

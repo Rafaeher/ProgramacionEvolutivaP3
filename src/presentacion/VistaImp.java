@@ -1,10 +1,8 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.ProgressMonitor;
 
 import org.math.plot.Plot2DPanel;
 

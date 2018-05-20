@@ -28,6 +28,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void algEvalua(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion) {
 

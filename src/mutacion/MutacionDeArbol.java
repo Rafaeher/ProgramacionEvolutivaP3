@@ -72,24 +72,4 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 
 	}
 
-	public static void main(String args[]) {
-
-		try {
-			ArbolOperaciones arbol = new ArbolOperaciones(Operacion.SQRT);
-			arbol.insertarDer(new ArbolOperaciones(Operacion.MUL));
-			arbol.obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
-			arbol.obtenerDer().insertarDer(new ArbolOperaciones(Operacion.MUL));
-			arbol.obtenerDer().obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
-			arbol.obtenerDer().obtenerDer().insertarDer(new ArbolOperaciones(Operacion.A));
-
-			GenotipoArbol genotipo = new GenotipoArbol(arbol,5);
-			genotipo.setProfundidadMaxima(5);
-			MutacionDeArbol mutacion = new MutacionDeArbol();
-			mutacion.muta(genotipo, null, 0.0);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
-	}
-
 }

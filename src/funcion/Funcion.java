@@ -5,11 +5,8 @@ import java.util.Random;
 
 import configuracion.Configuracion;
 import fenotipo.Fenotipo;
-import fenotipo.FenotipoArbol;
 import fitness.Fitness;
-import fitness.FitnessReal;
 import genotipo.Genotipo;
-import genotipo.GenotipoArbol;
 import individuo.ComparadorIndividuo;
 import individuo.Individuo;
 import poblacionInicial.FactoriaPoblacionInicial;
@@ -82,11 +79,6 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			colocaLaelite(elite);
 			
 			obtenerEstadisticas(it);
-			
-			if (y_mejor_total[it] != y_mejor_iteracion[it])
-			{
-				System.out.println("malo");
-			}
 			
 			if(!evoluciona(it))
 				reinicia();
@@ -275,15 +267,16 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 	
 	public abstract boolean getMaximizar();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Individuo<GenotipoF, FenotipoF, FitnessF> getMejor()
 	{
 		poblacion.sort(new ComparadorIndividuo(getMaximizar()));
 		return poblacion.get(0);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void reinicia()
 	{
-		System.out.println("REINICIO");
 		try
 		{
 			ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> mejores = calculaLosMejoresDeLaPoblacion(poblacion, poblacion.size() / 10);

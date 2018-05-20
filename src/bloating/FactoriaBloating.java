@@ -7,6 +7,7 @@ import genotipo.Genotipo;
 
 public class FactoriaBloating<GenotipoALF extends Genotipo, FenotipoALF extends Fenotipo, FitnessALF extends Fitness>
 {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Bloating<GenotipoALF,FenotipoALF, FitnessALF> getBloating(Bloating_enum bloating){
 		
 		switch(bloating){

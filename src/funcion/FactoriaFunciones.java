@@ -11,6 +11,7 @@ import individuo.Individuo;
 
 public class FactoriaFunciones<GenotipoALF extends Genotipo, FenotipoALF extends Fenotipo, FitnessALF extends Fitness>{
 
+	@SuppressWarnings("unchecked")
 	public Funcion<GenotipoALF,FenotipoALF,FitnessALF> getSeleccion(int f,
 			ArrayList<Individuo<GenotipoALF,FenotipoALF, FitnessALF>> poblacion,
 			Configuracion config)

@@ -17,6 +17,7 @@ implements Bloating<GenotipoArbol, FenotipoArbol, FitnessReal>  {
 
 	private double fitnessPoblacion;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void setFitnessConBloating(ArrayList<Individuo<GenotipoArbol, FenotipoArbol, FitnessReal>> poblacion, Configuracion c) {
 		
