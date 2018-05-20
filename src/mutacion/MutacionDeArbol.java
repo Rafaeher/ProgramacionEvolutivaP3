@@ -40,8 +40,7 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 			Random r = new Random();
 			
 			ArrayList<Operacion> operaciones = OperacionesSeleccionadas.getOperacionesSeleccionadas().getOperacionesTodasSeleccionadas();
-		//	Operacion[] operaciones = Operacion.values();
-		//	arbol.setRaiz(operaciones[r.nextInt(operaciones.length)]);
+
 			arbol.setRaiz(operaciones.get(r.nextInt(operaciones.size())));
 			Queue<ArbolOperaciones> nodos = new LinkedList<>();
 
@@ -82,17 +81,12 @@ public class MutacionDeArbol<FenotipoUPB extends Fenotipo, FitnessUPB extends Fi
 			arbol.obtenerDer().insertarDer(new ArbolOperaciones(Operacion.MUL));
 			arbol.obtenerDer().obtenerDer().insertarIzq(new ArbolOperaciones(Operacion.A));
 			arbol.obtenerDer().obtenerDer().insertarDer(new ArbolOperaciones(Operacion.A));
-			System.out.println("");
+
 			GenotipoArbol genotipo = new GenotipoArbol(arbol,5);
 			genotipo.setProfundidadMaxima(5);
 			MutacionDeArbol mutacion = new MutacionDeArbol();
 			mutacion.muta(genotipo, null, 0.0);
-			// genotipo.setArbol(arbol);
-			// MutacionFuncionalSimple m = new MutacionFuncionalSimple();
-			// m.muta(genotipo,null,0);
-			// System.out.println(arbol.operar(1.52));
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 

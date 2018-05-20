@@ -5,6 +5,6 @@ public class DecodificadorInicial extends DecodificadorEslabon
     @Override
     protected void decodifica(Object genotipo, Object fenotipo)
     {
-        new DecodificadorFinal().decodifica(genotipo, fenotipo);
+        new DecodificadorArbol().decodifica(genotipo, fenotipo);
     }
 }

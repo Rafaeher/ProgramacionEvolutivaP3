@@ -79,7 +79,7 @@ public class PanelInfo extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(450, 200));
 
         jTextFieldPoblacion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jTextFieldPoblacion.setToolTipText("Introduce el tamaño de la poblacion (valor entero)");
+        jTextFieldPoblacion.setToolTipText("Introduce el tamaño de la población (valor entero)");
         jTextFieldPoblacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPoblacionActionPerformed(evt);
@@ -87,10 +87,10 @@ public class PanelInfo extends javax.swing.JPanel {
         });
 
         jLabelPoblacion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelPoblacion.setText("Tamaño de la poblacion");
+        jLabelPoblacion.setText("Tamaño de la población");
 
         jLabelGeneraciones.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelGeneraciones.setText("Numero de generaciones");
+        jLabelGeneraciones.setText("Número de generaciones");
 
         jTextFieldGeneraciones.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jTextFieldGeneraciones.setToolTipText("Introduce el numero de generaciones (valor entero)");
@@ -101,7 +101,7 @@ public class PanelInfo extends javax.swing.JPanel {
         });
 
         jLabelSeleccion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelSeleccion.setText("Seleccion");
+        jLabelSeleccion.setText("Selección");
 
         jComboBoxSeleccion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jComboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ruleta", "Estocastica", "Truncamiento" }));
@@ -156,7 +156,7 @@ public class PanelInfo extends javax.swing.JPanel {
         });
 
         jLabelElite.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelElite.setText("Elite");
+        jLabelElite.setText("Élite");
 
         jTextArea4.setEditable(false);
         jTextArea4.setBackground(new java.awt.Color(239, 234, 234));
@@ -173,7 +173,7 @@ public class PanelInfo extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel1.setText("Profundidad maxima");
+        jLabel1.setText("Profundidad máxima");
 
         jComboBoxMutacion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jComboBoxMutacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "De arbol", "Funcional simple", "Terminal simple", "Permutacion" }));
@@ -246,7 +246,7 @@ public class PanelInfo extends javax.swing.JPanel {
             }
         });
 
-        jCheckBoxOpuesto.setText("Opuesto");
+        jCheckBoxOpuesto.setText("- (Opuesto)");
         jCheckBoxOpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxOpuestoActionPerformed(evt);
@@ -305,11 +305,11 @@ public class PanelInfo extends javax.swing.JPanel {
         );
 
         jLabelBloating.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelBloating.setText("Bolating");
+        jLabelBloating.setText("Bloating");
 
         jComboBoxBloating.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jComboBoxBloating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarpeian", "Penalizacion bien fundamentada" }));
-        jComboBoxBloating.setToolTipText("Elige un método de seleccion");
+        jComboBoxBloating.setToolTipText("Elige un método de selección");
         jComboBoxBloating.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxBloatingActionPerformed(evt);
@@ -318,7 +318,7 @@ public class PanelInfo extends javax.swing.JPanel {
 
         jComboBoxIniArbol.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jComboBoxIniArbol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Completa", "Creciente", "Ramped and half" }));
-        jComboBoxIniArbol.setToolTipText("Elige un método de seleccion");
+        jComboBoxIniArbol.setToolTipText("Elige un método de selección");
         jComboBoxIniArbol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxIniArbolActionPerformed(evt);
@@ -326,7 +326,7 @@ public class PanelInfo extends javax.swing.JPanel {
         });
 
         jLabelIniArbol.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabelIniArbol.setText("Inicializacion del arbol");
+        jLabelIniArbol.setText("Inicializacion del árbol");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

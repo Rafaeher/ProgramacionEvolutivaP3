@@ -75,35 +75,4 @@ public class Permutacion<FenotipoUPB extends Fenotipo, FitnessUPB extends Fitnes
 		
 	}
 
-	public static void main(String args[])
-	{
-
-		try
-		{
-			ArbolOperaciones a1 = new ArbolOperaciones(Operacion.A);
-			ArbolOperaciones sqrt = new ArbolOperaciones(Operacion.SQRT, a1);
-			
-			ArbolOperaciones a2 = new ArbolOperaciones(Operacion.A);
-			ArbolOperaciones log = new ArbolOperaciones(Operacion.LOG, a2);
-			
-			ArbolOperaciones suma = new ArbolOperaciones(sqrt, Operacion.RESTA, log);
-			
-			Permutacion permutacion = new Permutacion();
-			
-			GenotipoArbol genotipo = new GenotipoArbol(suma, 5);
-			FenotipoArbol fenotipo = new FenotipoArbol();
-			
-			permutacion.muta(genotipo, fenotipo, 100);
-			
-			System.out.println(suma.operar(100));
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-
-	}
-
-	
-
 }

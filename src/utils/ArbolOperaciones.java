@@ -294,31 +294,6 @@ public class ArbolOperaciones
 		return profundidad;
 	}
 
-	public static void main(String args[])
-	{
-		ArbolOperaciones
-		t1 = new ArbolOperaciones(Operacion.A),
-		t2 = new ArbolOperaciones(Operacion.A),
-		t3 = new ArbolOperaciones(Operacion.A),
-		t4 = new ArbolOperaciones(Operacion.A),
-		t5 = new ArbolOperaciones(Operacion.A),
-		mul1 = new ArbolOperaciones(t1, Operacion.MUL, t2),
-		mul2 = new ArbolOperaciones(t3, Operacion.MUL, mul1),
-		sqrt = new ArbolOperaciones(Operacion.SQRT, mul2),
-		nuevo = new ArbolOperaciones(Operacion.A);
-		
-		try
-		{	
-			//nuevo.reemplazaNodoK(1, sqrt, 2);
-			System.out.println(nuevo);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-				
-	}
-	
 	public void generarHijosAleatorios(ArrayList<Operacion> operandos) throws Exception{
 		Random r = new Random();
 		
@@ -505,9 +480,7 @@ public class ArbolOperaciones
 				cola.add(result.der);
 			}
 		}
-		
-	//	nodo.recorta(maxProfundidad - result.arbolPadre.nivel + nodo.nivel - 1);
-		
+			
 		if(result.arbolPadre.der == result)
 		{
 			result.arbolPadre.der = nodo;
