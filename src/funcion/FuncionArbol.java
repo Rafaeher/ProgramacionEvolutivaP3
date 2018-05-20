@@ -44,8 +44,7 @@ public class FuncionArbol extends Funcion<GenotipoArbol, FenotipoArbol, FitnessR
 		}
 
 		FactoriaBloating factoria = new FactoriaBloating();
-		factoria.getBloating(this.configuracion.getBloating_seleccionado()).setFitnessConBloating(poblacion,
-				configuracion);
+		factoria.getBloating(this.configuracion.getBloating_seleccionado()).setFitnessConBloating(poblacion, configuracion);
 	}
 
 	private double evalua(ArbolOperaciones arbol)

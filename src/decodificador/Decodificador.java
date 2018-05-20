@@ -1,6 +1,5 @@
 package decodificador;
 
-
 public class Decodificador
 {
     /**

@@ -83,6 +83,11 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			
 			obtenerEstadisticas(it);
 			
+			if (y_mejor_total[it] != y_mejor_iteracion[it])
+			{
+				System.out.println("malo");
+			}
+			
 			if(!evoluciona(it))
 				reinicia();
 		}
@@ -252,6 +257,7 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 		}
 		
 	}
+	
 	public abstract Individuo<GenotipoF, FenotipoF, FitnessF> mejor(ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> poblacion);
 	
 	public abstract Individuo<GenotipoF, FenotipoF, FitnessF> peor(ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> poblacion);
@@ -288,13 +294,15 @@ public abstract class Funcion<GenotipoF extends Genotipo, FenotipoF extends Feno
 			ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>> pob = (ArrayList<Individuo<GenotipoF, FenotipoF, FitnessF>>) poblacion;
 					
 			this.poblacion = pob;
-					
+
+			algEvalua(this.poblacion);
+
 			for(int i = 0; i < mejores.size(); i++ )
 			{
 				this.poblacion.add(mejores.get(i));
 			}
 					
-			algEvalua(this.poblacion);
+
 		}
 		catch(Exception e)
 		{
