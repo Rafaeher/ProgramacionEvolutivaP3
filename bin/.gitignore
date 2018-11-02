@@ -1,16 +1,5 @@
-/bloating/
-/configuracion/
-/dao/
-/decodificador/
-/fenotipo/
-/fitness/
-/funcion/
-/genotipo/
-/individuo/
-/main/
-/mutacion/
-/poblacionInicial/
 /presentacion/
 /reproduccion/
 /seleccion/
 /utils/
+/main/
